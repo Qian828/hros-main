@@ -11,7 +11,7 @@
  Target Server Version : 80026 (8.0.26)
  File Encoding         : 65001
 
- Date: 09/03/2026 16:52:48
+ Date: 10/03/2026 17:47:31
 */
 
 SET NAMES utf8mb4;
@@ -78,18 +78,12 @@ CREATE TABLE `department`  (
 -- Records of department
 -- ----------------------------
 INSERT INTO `department` VALUES (1, '总公司', -1, '.1', 1, 1);
-INSERT INTO `department` VALUES (148, '小部门', 1, '.1.148', 1, 1);
-INSERT INTO `department` VALUES (149, '小小部门', 148, '.1.148.149', 1, 0);
 INSERT INTO `department` VALUES (150, '上海区域', 1, '.1.150', 1, 1);
-INSERT INTO `department` VALUES (151, '杭州区域', 1, '.1.151', 1, 0);
-INSERT INTO `department` VALUES (152, '温州区域', 1, '.1.152', 1, 0);
 INSERT INTO `department` VALUES (153, '七宝', 150, '.1.150.153', 1, 1);
-INSERT INTO `department` VALUES (154, '五角场', 150, '.1.150.154', 1, 0);
 INSERT INTO `department` VALUES (159, '七宝前厅', 153, '.1.150.153.159', 1, 0);
 INSERT INTO `department` VALUES (160, '七宝后厨', 153, '.1.150.153.160', 1, 0);
 INSERT INTO `department` VALUES (161, '七宝水吧', 153, '.1.150.153.161', 1, 0);
 INSERT INTO `department` VALUES (162, '七宝后勤', 153, '.1.150.153.162', 1, 0);
-INSERT INTO `department` VALUES (163, '1', 148, '.1.148.163', 1, 0);
 
 -- ----------------------------
 -- Table structure for employee
@@ -142,8 +136,8 @@ CREATE TABLE `employee`  (
 -- ----------------------------
 -- Records of employee
 -- ----------------------------
-INSERT INTO `employee` VALUES (5268, '小红', '男', '1998-10-08', '150124199510081276', '未婚', 1, '中国', 3, '00000001@qq.com', '15692756582', '江苏盐城', 1, 14, 33, '劳动合同', '本科', '软件工程', '盐城师范学院', '2023-03-03', '在职', '00000001', 1, '2023-03-03', NULL, '2023-03-03', '2024-03-11', NULL);
-INSERT INTO `employee` VALUES (5271, '小白', '男', '1998-10-08', '150124199510081276', '未婚', 1, '重庆', 3, '123123@qq.com', '15696756582', '无', 161, 16, 33, '劳动合同', '博士', '软件工程', '盐城师范', '2023-03-03', '在职', '00000002', 0, '2023-03-03', NULL, '2023-03-03', '2023-03-03', NULL);
+INSERT INTO `employee` VALUES (5268, '小红', '男', '1998-10-08', '150124199510081276', '未婚', 1, '中国', 3, '00000001@qq.com', '15692756582', '江苏盐城', 1, 38, 124, '劳动合同', '本科', '软件工程', '盐城师范学院', '2023-03-03', '在职', '00000001', 1, '2023-03-03', NULL, '2023-03-03', '2024-03-11', NULL);
+INSERT INTO `employee` VALUES (5271, '小白', '男', '1998-10-08', '150124199510081276', '未婚', 1, '重庆', 3, '123123@qq.com', '15696756582', '无', 161, 37, 121, '劳动合同', '博士', '软件工程', '盐城师范', '2023-03-03', '在职', '00000002', 0, '2023-03-03', NULL, '2023-03-03', '2023-03-03', NULL);
 
 -- ----------------------------
 -- Table structure for employee_recycle
@@ -282,7 +276,7 @@ CREATE TABLE `empsalary`  (
   INDEX `empsalary_ibfk_2`(`sid` ASC) USING BTREE,
   CONSTRAINT `empsalary_ibfk_1` FOREIGN KEY (`eid`) REFERENCES `employee` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `empsalary_ibfk_2` FOREIGN KEY (`sid`) REFERENCES `salary` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 113 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 115 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of empsalary
@@ -291,6 +285,8 @@ INSERT INTO `empsalary` VALUES (109, 5268, 10);
 INSERT INTO `empsalary` VALUES (110, 5268, 26);
 INSERT INTO `empsalary` VALUES (111, 5271, 10);
 INSERT INTO `empsalary` VALUES (112, 5271, 10);
+INSERT INTO `empsalary` VALUES (113, 5271, 10);
+INSERT INTO `empsalary` VALUES (114, 5268, 26);
 
 -- ----------------------------
 -- Table structure for fileup
@@ -403,19 +399,18 @@ DROP TABLE IF EXISTS `joblevel`;
 CREATE TABLE `joblevel`  (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '职称名称',
-  `titleLevel` enum('正高级','副高级','中级','初级','员级') CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `titleLevel` enum('高级','中级','初级') CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `createDate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `enabled` tinyint(1) NULL DEFAULT 1,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 40 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of joblevel
 -- ----------------------------
-INSERT INTO `joblevel` VALUES (9, '教授', '正高级', '2018-01-11 21:19:14', 0);
-INSERT INTO `joblevel` VALUES (14, '初级工程师', '初级', '2018-01-14 16:18:50', 1);
-INSERT INTO `joblevel` VALUES (15, '中级工程师', '中级', '2018-01-14 16:19:00', 1);
-INSERT INTO `joblevel` VALUES (16, '高级工程师', '副高级', '2018-01-14 16:19:14', 1);
+INSERT INTO `joblevel` VALUES (37, '初级', '初级', '2026-03-10 14:30:38', 1);
+INSERT INTO `joblevel` VALUES (38, '中级', '中级', '2026-03-10 14:30:47', 1);
+INSERT INTO `joblevel` VALUES (39, '高级', '高级', '2026-03-10 15:05:01', 1);
 
 -- ----------------------------
 -- Table structure for logtype
@@ -473,7 +468,7 @@ CREATE TABLE `menu`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `parentId`(`parentId` ASC) USING BTREE,
   CONSTRAINT `menu_ibfk_1` FOREIGN KEY (`parentId`) REFERENCES `menu` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 77 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 79 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of menu
@@ -483,36 +478,38 @@ INSERT INTO `menu` VALUES (2, '/', '/home', 'Home', '员工信息管理', 'fa fa
 INSERT INTO `menu` VALUES (3, '/', '/home', 'Home', '组织架构管理', 'fa fa-sitemap', NULL, 1, 1, 1);
 INSERT INTO `menu` VALUES (4, '/', '/home', 'Home', '考勤与排班管理', 'fa fa-calendar-check-o', NULL, 1, 1, 1);
 INSERT INTO `menu` VALUES (5, '/', '/home', 'Home', '薪酬福利管理', 'fa fa-money', NULL, 1, 1, 1);
-INSERT INTO `menu` VALUES (6, '/', '/home', 'Home', '个人信息', 'fa fa-user-circle-o', NULL, 1, 1, NULL);
+INSERT INTO `menu` VALUES (6, '/', '/home', 'Home', '个人信息', 'fa fa-user-circle-o', NULL, 1, 1, 1);
 INSERT INTO `menu` VALUES (13, '/', '/home', 'Home', '职级晋升与异动管理', 'fa fa-address-card-o', NULL, 1, 1, 1);
 INSERT INTO `menu` VALUES (34, '/', '/home', 'Home', '培训与考核管理', 'fa fa-graduation-cap', NULL, 1, 1, 1);
 INSERT INTO `menu` VALUES (35, '/', '/home', 'Home', '离职与交接管理', 'fa fa-sign-out', NULL, 1, 1, 1);
 INSERT INTO `menu` VALUES (36, '/', '/home', 'Home', '合作机构管理', 'fa fa-handshake-o', NULL, 1, 1, 1);
 INSERT INTO `menu` VALUES (38, '/', '/home', 'Home', '系统管理', 'fa fa-windows', NULL, 1, 1, 1);
 INSERT INTO `menu` VALUES (47, '/employee/basic/**', '/emp/basic', 'EmpBasic', '员工档案', 'fa fa-id-card-o', NULL, 1, 2, 1);
-INSERT INTO `menu` VALUES (48, '/employee/advanced/**', '/emp/adv', 'EmpAdv', '高级资料', 'fa fa-id-card', NULL, 1, 6, NULL);
-INSERT INTO `menu` VALUES (49, '/employee/basic/**', '/emp/basic2', 'EmpBasic2', '基本资料', 'fa fa-id-card-o', NULL, 1, 6, NULL);
-INSERT INTO `menu` VALUES (50, '/personnel/ec/**', '/per/ec', 'PerEc', '员工奖惩', 'fa fa-american-sign-language-interpreting', NULL, 1, 2, 1);
-INSERT INTO `menu` VALUES (51, '/personnel/train/**', '/per/train', 'PerTrain', '员工培训', 'fa fa-user-plus', NULL, 1, 34, 1);
-INSERT INTO `menu` VALUES (52, '/personnel/salary/**', '/per/salary', 'PerSalary', '员工调薪', 'fa fa-braille', NULL, 1, 5, 1);
-INSERT INTO `menu` VALUES (53, '/personnel/remove/**', '/per/mv', 'PerMv', '调动职务', 'fa fa-blind', NULL, 1, 13, 1);
+INSERT INTO `menu` VALUES (48, '/employee/advanced/**', '/emp/adv', 'EmpAdv', '高级资料', 'fa fa-id-card', NULL, 1, 6, 1);
+INSERT INTO `menu` VALUES (49, '/employee/basic/**', '/emp/basic2', 'EmpBasic2', '基本资料', 'fa fa-id-card-o', NULL, 1, 6, 1);
+INSERT INTO `menu` VALUES (50, '/personnel/ec/**', '/per/ec', 'PerEc', '员工奖惩', 'fa fa-thumbs-up', NULL, 1, 5, 1);
+INSERT INTO `menu` VALUES (51, '/personnel/train/**', '/per/train', 'PerTrain', '员工培训', 'fa fa-book', NULL, 1, 34, 1);
+INSERT INTO `menu` VALUES (52, '/personnel/salary/**', '/per/salary', 'PerSalary', '员工调薪', 'fa fa-calculator', NULL, 1, 5, 1);
+INSERT INTO `menu` VALUES (53, '/personnel/remove/**', '/per/mv', 'PerMv', '调动职务', 'fa fa-arrows-h', NULL, 1, 13, 1);
 INSERT INTO `menu` VALUES (54, '/salary/sob/**', '/sal/sob', 'SalSob', '工资账套管理', 'fa fa-credit-card-alt ', NULL, 1, 5, 1);
 INSERT INTO `menu` VALUES (55, '/salary/sobcfg/**', '/sal/sobcfg', 'SalSobCfg', '员工账套设置', 'fa fa-cc-amex', NULL, 1, 5, 1);
 INSERT INTO `menu` VALUES (56, '/salary/table/**', '/sal/table', 'SalTable', '工资表管理', 'fa fa-indent', NULL, 1, 5, 1);
-INSERT INTO `menu` VALUES (63, '/system/basic/**', '/sys/basic', 'SysBasic', '基础信息设置', 'fa fa-stack-overflow', NULL, 1, 3, 1);
-INSERT INTO `menu` VALUES (64, '/system/cfg/**', '/sys/cfg', 'SysCfg', '公告管理', 'fa fa-steam-square', NULL, 1, 38, 1);
+INSERT INTO `menu` VALUES (63, '/system/basic/**', '/sys/basic', 'SysBasic', '基础信息设置', 'fa fa-cogs', NULL, 1, 3, 1);
+INSERT INTO `menu` VALUES (64, '/system/cfg/**', '/sys/cfg', 'SysCfg', '公告管理', 'fa fa-steam-square', NULL, 1, 38, NULL);
 INSERT INTO `menu` VALUES (65, '/system/log/**', '/sys/log', 'SysLog', '操作日志管理', 'fa fa-list', NULL, 1, 38, 1);
 INSERT INTO `menu` VALUES (66, '/system/hr/**', '/sys/hr', 'SysHr', '操作员管理', 'fa fa-users', NULL, 1, 38, 1);
 INSERT INTO `menu` VALUES (67, '/system/hr/**', '/sys/hrbase', 'SysHrBase', '个人中心', 'fa fa-users', NULL, 1, 38, 1);
-INSERT INTO `menu` VALUES (68, '/employee/basic/**', '/emp/calenderBox', 'EmpCalenderBox', '员工打卡', 'fa fa-braille', NULL, 1, 6, NULL);
-INSERT INTO `menu` VALUES (69, '/personnel/train/**', '/per/train2', 'PerTrain2', '个人培训', 'fa fa-user-plus', NULL, 1, 6, NULL);
-INSERT INTO `menu` VALUES (70, '/personnel/ec/**', '/per/ec2', 'PerEc2', '个人奖惩', 'fa fa-american-sign-language-interpreting', NULL, 1, 6, NULL);
-INSERT INTO `menu` VALUES (71, '/personnel/remove/**', '/per/mv2', 'PerMv2', '个人调动', 'fa fa-blind', NULL, 1, 6, NULL);
-INSERT INTO `menu` VALUES (72, '/personnel/salary/**', '/per/salary2', 'PerSalary2', '个人调薪', 'fa fa-braille', NULL, 1, 6, NULL);
-INSERT INTO `menu` VALUES (73, '/personnel/ec/**', '/per/work', 'PerWork', '考勤管理', 'fa fa-american-sign-language-interpreting', NULL, 1, 4, 1);
-INSERT INTO `menu` VALUES (74, '/employee/basic/**', '/emp/basic', 'EmpBasic', '离职管理', 'fa fa-id-card-o', NULL, 1, 35, 1);
-INSERT INTO `menu` VALUES (75, '/personnel/remove/**', '/per/mv2', 'PerMv2', '交接物品管理', 'fa fa-blind', NULL, 1, 35, 1);
+INSERT INTO `menu` VALUES (68, '/employee/basic/**', '/emp/calenderBox', 'EmpCalenderBox', '员工打卡', 'fa fa-braille', NULL, 1, 6, 1);
+INSERT INTO `menu` VALUES (69, '/personnel/train/**', '/per/train2', 'PerTrain2', '个人培训', 'fa fa-user-plus', NULL, 1, 6, 1);
+INSERT INTO `menu` VALUES (70, '/personnel/ec/**', '/per/ec2', 'PerEc2', '个人奖惩', 'fa fa-american-sign-language-interpreting', NULL, 1, 6, 1);
+INSERT INTO `menu` VALUES (71, '/personnel/remove/**', '/per/mv2', 'PerMv2', '个人调动', 'fa fa-blind', NULL, 1, 6, 1);
+INSERT INTO `menu` VALUES (72, '/personnel/salary/**', '/per/salary2', 'PerSalary2', '个人调薪', 'fa fa-braille', NULL, 1, 6, 1);
+INSERT INTO `menu` VALUES (73, '/personnel/ec/**', '/per/work', 'PerWork', '考勤管理', 'fa fa-check-square-o', NULL, 1, 4, 1);
+INSERT INTO `menu` VALUES (74, '/employee/basic/**', '/emp/basic', 'EmpBasic', '离职管理', 'fa fa-user-times', NULL, 1, 35, 1);
+INSERT INTO `menu` VALUES (75, '/personnel/remove/**', '/per/mv2', 'PerMv2', '交接物品管理', 'fa fa-exchange', NULL, 1, 35, 1);
 INSERT INTO `menu` VALUES (76, '/system/log/**', '/sys/log', 'SysLog', '合作机构管理', 'fa fa-list', NULL, 1, 36, 1);
+INSERT INTO `menu` VALUES (77, '/personnel/ec/**', '/per/work', 'PerWork', '排班管理', 'fa fa-calendar', NULL, 1, 4, 1);
+INSERT INTO `menu` VALUES (78, '/employee/basic/**', '/emp/basic', 'EmpBasic', '黑名单', 'fa fa-ban', NULL, 1, 2, 1);
 
 -- ----------------------------
 -- Table structure for menu_role
@@ -527,59 +524,42 @@ CREATE TABLE `menu_role`  (
   INDEX `rid`(`rid` ASC) USING BTREE,
   CONSTRAINT `menu_role_ibfk_1` FOREIGN KEY (`mid`) REFERENCES `menu` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `menu_role_ibfk_2` FOREIGN KEY (`rid`) REFERENCES `role` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1155 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1221 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of menu_role
 -- ----------------------------
-INSERT INTO `menu_role` VALUES (922, 48, 2);
-INSERT INTO `menu_role` VALUES (923, 47, 2);
-INSERT INTO `menu_role` VALUES (924, 50, 2);
-INSERT INTO `menu_role` VALUES (925, 51, 2);
-INSERT INTO `menu_role` VALUES (926, 52, 2);
-INSERT INTO `menu_role` VALUES (927, 53, 2);
-INSERT INTO `menu_role` VALUES (928, 54, 2);
-INSERT INTO `menu_role` VALUES (929, 55, 2);
-INSERT INTO `menu_role` VALUES (930, 56, 2);
-INSERT INTO `menu_role` VALUES (935, 63, 2);
-INSERT INTO `menu_role` VALUES (936, 64, 2);
-INSERT INTO `menu_role` VALUES (937, 65, 2);
-INSERT INTO `menu_role` VALUES (938, 66, 2);
-INSERT INTO `menu_role` VALUES (1085, 48, 34);
-INSERT INTO `menu_role` VALUES (1086, 49, 34);
-INSERT INTO `menu_role` VALUES (1087, 68, 34);
-INSERT INTO `menu_role` VALUES (1088, 69, 34);
-INSERT INTO `menu_role` VALUES (1089, 70, 34);
-INSERT INTO `menu_role` VALUES (1090, 71, 34);
-INSERT INTO `menu_role` VALUES (1091, 72, 34);
-INSERT INTO `menu_role` VALUES (1092, 67, 34);
-INSERT INTO `menu_role` VALUES (1117, 48, 6);
-INSERT INTO `menu_role` VALUES (1118, 49, 6);
-INSERT INTO `menu_role` VALUES (1119, 68, 6);
-INSERT INTO `menu_role` VALUES (1120, 69, 6);
-INSERT INTO `menu_role` VALUES (1121, 70, 6);
-INSERT INTO `menu_role` VALUES (1122, 71, 6);
-INSERT INTO `menu_role` VALUES (1123, 72, 6);
-INSERT INTO `menu_role` VALUES (1124, 47, 6);
-INSERT INTO `menu_role` VALUES (1125, 50, 6);
-INSERT INTO `menu_role` VALUES (1126, 51, 6);
-INSERT INTO `menu_role` VALUES (1127, 52, 6);
-INSERT INTO `menu_role` VALUES (1128, 53, 6);
-INSERT INTO `menu_role` VALUES (1129, 73, 6);
-INSERT INTO `menu_role` VALUES (1130, 54, 6);
-INSERT INTO `menu_role` VALUES (1131, 55, 6);
-INSERT INTO `menu_role` VALUES (1132, 56, 6);
-INSERT INTO `menu_role` VALUES (1137, 63, 6);
-INSERT INTO `menu_role` VALUES (1138, 64, 6);
-INSERT INTO `menu_role` VALUES (1139, 65, 6);
-INSERT INTO `menu_role` VALUES (1140, 66, 6);
-INSERT INTO `menu_role` VALUES (1141, 34, 6);
-INSERT INTO `menu_role` VALUES (1147, 35, 6);
-INSERT INTO `menu_role` VALUES (1148, 36, 6);
-INSERT INTO `menu_role` VALUES (1150, 74, 6);
-INSERT INTO `menu_role` VALUES (1151, 75, 6);
-INSERT INTO `menu_role` VALUES (1152, 76, 6);
-INSERT INTO `menu_role` VALUES (1153, 67, 6);
+INSERT INTO `menu_role` VALUES (1155, 47, 2);
+INSERT INTO `menu_role` VALUES (1156, 50, 2);
+INSERT INTO `menu_role` VALUES (1157, 53, 2);
+INSERT INTO `menu_role` VALUES (1158, 51, 2);
+INSERT INTO `menu_role` VALUES (1159, 76, 2);
+INSERT INTO `menu_role` VALUES (1177, 48, 34);
+INSERT INTO `menu_role` VALUES (1178, 49, 34);
+INSERT INTO `menu_role` VALUES (1179, 68, 34);
+INSERT INTO `menu_role` VALUES (1180, 69, 34);
+INSERT INTO `menu_role` VALUES (1181, 70, 34);
+INSERT INTO `menu_role` VALUES (1182, 71, 34);
+INSERT INTO `menu_role` VALUES (1183, 72, 34);
+INSERT INTO `menu_role` VALUES (1202, 47, 6);
+INSERT INTO `menu_role` VALUES (1203, 78, 6);
+INSERT INTO `menu_role` VALUES (1204, 63, 6);
+INSERT INTO `menu_role` VALUES (1205, 73, 6);
+INSERT INTO `menu_role` VALUES (1206, 77, 6);
+INSERT INTO `menu_role` VALUES (1207, 50, 6);
+INSERT INTO `menu_role` VALUES (1208, 52, 6);
+INSERT INTO `menu_role` VALUES (1209, 54, 6);
+INSERT INTO `menu_role` VALUES (1210, 55, 6);
+INSERT INTO `menu_role` VALUES (1211, 56, 6);
+INSERT INTO `menu_role` VALUES (1212, 53, 6);
+INSERT INTO `menu_role` VALUES (1213, 51, 6);
+INSERT INTO `menu_role` VALUES (1214, 74, 6);
+INSERT INTO `menu_role` VALUES (1215, 75, 6);
+INSERT INTO `menu_role` VALUES (1216, 76, 6);
+INSERT INTO `menu_role` VALUES (1217, 64, 6);
+INSERT INTO `menu_role` VALUES (1218, 65, 6);
+INSERT INTO `menu_role` VALUES (1219, 66, 6);
+INSERT INTO `menu_role` VALUES (1220, 67, 6);
 
 -- ----------------------------
 -- Table structure for msgcontent
@@ -678,7 +658,7 @@ CREATE TABLE `oplog`  (
   `operate` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '操作内容',
   `hrname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '操作员',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2731 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2820 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of oplog
@@ -764,6 +744,85 @@ INSERT INTO `oplog` VALUES (2727, 3, '2026-03-09 14:09:53', '员工奖惩添加:
 INSERT INTO `oplog` VALUES (2728, 4, '2026-03-09 14:10:22', '批量添加培训:', '系统管理员');
 INSERT INTO `oplog` VALUES (2729, 8, '2026-03-09 14:25:19', '操作员角色更新', '系统管理员');
 INSERT INTO `oplog` VALUES (2730, 1, '2026-03-09 16:39:40', '批量删除公告:ids = [Ljava.lang.Integer;@17e53132', '系统管理员');
+INSERT INTO `oplog` VALUES (2731, 1, '2026-03-10 13:40:29', '角色权限变更', '系统管理员');
+INSERT INTO `oplog` VALUES (2732, 1, '2026-03-10 13:40:37', '角色权限变更', '系统管理员');
+INSERT INTO `oplog` VALUES (2733, 1, '2026-03-10 13:41:02', '角色权限变更', '系统管理员');
+INSERT INTO `oplog` VALUES (2734, 1, '2026-03-10 14:07:58', '角色权限变更', '系统管理员');
+INSERT INTO `oplog` VALUES (2735, 1, '2026-03-10 14:15:02', '删除部门:id=148', '系统管理员');
+INSERT INTO `oplog` VALUES (2736, 1, '2026-03-10 14:15:23', '删除职位: id = 119', '系统管理员');
+INSERT INTO `oplog` VALUES (2737, 1, '2026-03-10 14:15:25', '删除职位: id = 29', '系统管理员');
+INSERT INTO `oplog` VALUES (2738, 1, '2026-03-10 14:15:27', '删除职位: id = 30', '系统管理员');
+INSERT INTO `oplog` VALUES (2742, 1, '2026-03-10 14:15:35', '删除职位: id = 34', '系统管理员');
+INSERT INTO `oplog` VALUES (2743, 1, '2026-03-10 14:15:37', '删除职位: id = 115', '系统管理员');
+INSERT INTO `oplog` VALUES (2744, 1, '2026-03-10 14:15:39', '删除职位: id = 117', '系统管理员');
+INSERT INTO `oplog` VALUES (2745, 1, '2026-03-10 14:15:42', '删除职位: id = 118', '系统管理员');
+INSERT INTO `oplog` VALUES (2747, 11, '2026-03-10 14:16:08', '更新员工资料::name:小白---workId:00000002', '系统管理员');
+INSERT INTO `oplog` VALUES (2748, 11, '2026-03-10 14:16:16', '更新员工资料::name:小红---workId:00000001', '系统管理员');
+INSERT INTO `oplog` VALUES (2749, 1, '2026-03-10 14:16:22', '删除部门:id=148', '系统管理员');
+INSERT INTO `oplog` VALUES (2750, 1, '2026-03-10 14:16:25', '删除部门:id=163', '系统管理员');
+INSERT INTO `oplog` VALUES (2751, 1, '2026-03-10 14:16:27', '删除部门:id=149', '系统管理员');
+INSERT INTO `oplog` VALUES (2752, 1, '2026-03-10 14:16:29', '删除部门:id=148', '系统管理员');
+INSERT INTO `oplog` VALUES (2753, 1, '2026-03-10 14:16:34', '删除职位: id = 33', '系统管理员');
+INSERT INTO `oplog` VALUES (2754, 1, '2026-03-10 14:16:52', '删除职称 : id=9', '系统管理员');
+INSERT INTO `oplog` VALUES (2756, 1, '2026-03-10 14:19:40', '更新职称初级领班', '系统管理员');
+INSERT INTO `oplog` VALUES (2757, 1, '2026-03-10 14:19:44', '更新职称中级领班', '系统管理员');
+INSERT INTO `oplog` VALUES (2758, 1, '2026-03-10 14:19:48', '更新职称高级领班', '系统管理员');
+INSERT INTO `oplog` VALUES (2759, 1, '2026-03-10 14:20:19', '添加职称初级店长', '系统管理员');
+INSERT INTO `oplog` VALUES (2760, 11, '2026-03-10 14:20:33', '更新员工资料::name:小白---workId:00000002', '系统管理员');
+INSERT INTO `oplog` VALUES (2761, 1, '2026-03-10 14:20:47', '更新职位:领班', '系统管理员');
+INSERT INTO `oplog` VALUES (2762, 1, '2026-03-10 14:20:50', '删除职位: id = 122', '系统管理员');
+INSERT INTO `oplog` VALUES (2763, 1, '2026-03-10 14:20:54', '删除职位: id = 123', '系统管理员');
+INSERT INTO `oplog` VALUES (2764, 1, '2026-03-10 14:21:01', '更新职位:服务员', '系统管理员');
+INSERT INTO `oplog` VALUES (2766, 1, '2026-03-10 14:22:48', '删除职称 : id=16', '系统管理员');
+INSERT INTO `oplog` VALUES (2769, 1, '2026-03-10 14:24:37', '添加职称高级领班', '系统管理员');
+INSERT INTO `oplog` VALUES (2771, 11, '2026-03-10 14:25:19', '更新员工资料::name:小白---workId:00000002', '系统管理员');
+INSERT INTO `oplog` VALUES (2772, 11, '2026-03-10 14:25:28', '更新员工资料::name:小红---workId:00000001', '系统管理员');
+INSERT INTO `oplog` VALUES (2773, 1, '2026-03-10 14:25:35', '删除职称 : id=19', '系统管理员');
+INSERT INTO `oplog` VALUES (2774, 1, '2026-03-10 14:26:01', '添加职称副店长', '系统管理员');
+INSERT INTO `oplog` VALUES (2775, 1, '2026-03-10 14:26:17', '添加职称初级服务员', '系统管理员');
+INSERT INTO `oplog` VALUES (2776, 1, '2026-03-10 14:26:28', '添加职称中级服务员', '系统管理员');
+INSERT INTO `oplog` VALUES (2777, 1, '2026-03-10 14:26:33', '添加职称高级服务员', '系统管理员');
+INSERT INTO `oplog` VALUES (2778, 1, '2026-03-10 14:26:38', '删除职位: id = 126', '系统管理员');
+INSERT INTO `oplog` VALUES (2779, 1, '2026-03-10 14:26:41', '删除职位: id = 127', '系统管理员');
+INSERT INTO `oplog` VALUES (2780, 1, '2026-03-10 14:27:06', '添加职称初级收银', '系统管理员');
+INSERT INTO `oplog` VALUES (2781, 1, '2026-03-10 14:27:13', '添加职称中级收银', '系统管理员');
+INSERT INTO `oplog` VALUES (2782, 1, '2026-03-10 14:27:18', '添加职称高级收银', '系统管理员');
+INSERT INTO `oplog` VALUES (2783, 1, '2026-03-10 14:27:24', '删除职位: id = 129', '系统管理员');
+INSERT INTO `oplog` VALUES (2784, 1, '2026-03-10 14:27:27', '删除职位: id = 130', '系统管理员');
+INSERT INTO `oplog` VALUES (2785, 1, '2026-03-10 14:27:35', '更新职位:收银员', '系统管理员');
+INSERT INTO `oplog` VALUES (2786, 1, '2026-03-10 14:27:42', '更新职称初级收银员', '系统管理员');
+INSERT INTO `oplog` VALUES (2787, 1, '2026-03-10 14:27:45', '更新职称中级收银员', '系统管理员');
+INSERT INTO `oplog` VALUES (2788, 1, '2026-03-10 14:27:50', '更新职称高级收银员', '系统管理员');
+INSERT INTO `oplog` VALUES (2789, 1, '2026-03-10 14:28:03', '添加职称初级传菜员', '系统管理员');
+INSERT INTO `oplog` VALUES (2790, 1, '2026-03-10 14:28:07', '添加职称中级传菜员', '系统管理员');
+INSERT INTO `oplog` VALUES (2791, 1, '2026-03-10 14:28:12', '添加职称高级传菜员', '系统管理员');
+INSERT INTO `oplog` VALUES (2792, 1, '2026-03-10 14:28:18', '更新职位:传菜员', '系统管理员');
+INSERT INTO `oplog` VALUES (2793, 1, '2026-03-10 14:28:21', '删除职位: id = 132', '系统管理员');
+INSERT INTO `oplog` VALUES (2794, 1, '2026-03-10 14:28:23', '删除职位: id = 133', '系统管理员');
+INSERT INTO `oplog` VALUES (2795, 1, '2026-03-10 14:28:43', '添加职称初级迎宾员', '系统管理员');
+INSERT INTO `oplog` VALUES (2796, 1, '2026-03-10 14:28:49', '添加职称中级迎宾员', '系统管理员');
+INSERT INTO `oplog` VALUES (2797, 1, '2026-03-10 14:28:53', '添加职称高级迎宾员', '系统管理员');
+INSERT INTO `oplog` VALUES (2798, 1, '2026-03-10 14:29:00', '更新职位:迎宾员', '系统管理员');
+INSERT INTO `oplog` VALUES (2799, 1, '2026-03-10 14:29:02', '删除职位: id = 135', '系统管理员');
+INSERT INTO `oplog` VALUES (2800, 1, '2026-03-10 14:29:04', '删除职位: id = 136', '系统管理员');
+INSERT INTO `oplog` VALUES (2801, 1, '2026-03-10 14:29:27', '添加职称初级水吧员', '系统管理员');
+INSERT INTO `oplog` VALUES (2802, 1, '2026-03-10 14:29:32', '添加职称中级水吧员', '系统管理员');
+INSERT INTO `oplog` VALUES (2803, 1, '2026-03-10 14:29:36', '添加职称高级水吧员', '系统管理员');
+INSERT INTO `oplog` VALUES (2804, 1, '2026-03-10 14:29:45', '更新职位:水吧员', '系统管理员');
+INSERT INTO `oplog` VALUES (2805, 1, '2026-03-10 14:29:47', '删除职位: id = 140', '系统管理员');
+INSERT INTO `oplog` VALUES (2806, 1, '2026-03-10 14:29:50', '删除职位: id = 141', '系统管理员');
+INSERT INTO `oplog` VALUES (2807, 1, '2026-03-10 14:30:38', '添加职称初级', '系统管理员');
+INSERT INTO `oplog` VALUES (2808, 1, '2026-03-10 14:30:47', '添加职称中级', '系统管理员');
+INSERT INTO `oplog` VALUES (2809, 1, '2026-03-10 15:05:01', '添加职称高级', '系统管理员');
+INSERT INTO `oplog` VALUES (2811, 11, '2026-03-10 15:08:02', '更新员工资料::name:小白---workId:00000002', '系统管理员');
+INSERT INTO `oplog` VALUES (2812, 11, '2026-03-10 15:08:11', '更新员工资料::name:小红---workId:00000001', '系统管理员');
+INSERT INTO `oplog` VALUES (2813, 1, '2026-03-10 15:08:23', '批量删除职称: ids=[Ljava.lang.Integer;@2f82e76b', '系统管理员');
+INSERT INTO `oplog` VALUES (2814, 1, '2026-03-10 15:08:44', '删除部门:id=154', '系统管理员');
+INSERT INTO `oplog` VALUES (2815, 1, '2026-03-10 15:08:47', '删除部门:id=152', '系统管理员');
+INSERT INTO `oplog` VALUES (2816, 1, '2026-03-10 15:08:52', '删除部门:id=151', '系统管理员');
+INSERT INTO `oplog` VALUES (2817, 1, '2026-03-10 15:18:33', '角色权限变更', '系统管理员');
+INSERT INTO `oplog` VALUES (2818, 7, '2026-03-10 17:13:19', '员工套账变动:workId:5271套账编号:10', '系统管理员');
+INSERT INTO `oplog` VALUES (2819, 7, '2026-03-10 17:13:25', '员工套账变动:workId:5268套账编号:26', '系统管理员');
 
 -- ----------------------------
 -- Table structure for politicsstatus
@@ -798,35 +857,15 @@ CREATE TABLE `position`  (
 -- ----------------------------
 -- Records of position
 -- ----------------------------
-INSERT INTO `position` VALUES (29, '技术总监', '2023-03-10 20:58:54', 1);
-INSERT INTO `position` VALUES (30, '运营总监', '2020-01-05 17:51:25', 1);
-INSERT INTO `position` VALUES (33, '研发工程师', '2019-12-26 10:41:10', 1);
-INSERT INTO `position` VALUES (34, '运维工程师', '2020-01-14 23:02:49', 1);
-INSERT INTO `position` VALUES (115, '前端工程师', '2020-01-21 19:48:54', 0);
-INSERT INTO `position` VALUES (117, '销售工程师', '2020-01-05 17:52:12', 1);
-INSERT INTO `position` VALUES (118, '技术顾问', '2020-01-05 17:52:18', 1);
-INSERT INTO `position` VALUES (119, '区域负责人', '2025-12-24 12:03:36', 1);
 INSERT INTO `position` VALUES (120, '店长', '2025-12-24 12:17:53', 1);
-INSERT INTO `position` VALUES (121, '初级领班', '2025-12-24 12:18:05', 1);
-INSERT INTO `position` VALUES (122, '中级领班', '2025-12-24 12:18:12', 1);
-INSERT INTO `position` VALUES (123, '高级领班', '2025-12-24 12:18:17', 1);
+INSERT INTO `position` VALUES (121, '领班', '2026-03-10 14:20:47', 1);
 INSERT INTO `position` VALUES (124, '客情经理', '2025-12-24 12:18:27', 1);
-INSERT INTO `position` VALUES (125, '初级服务员', '2025-12-24 12:18:38', 1);
-INSERT INTO `position` VALUES (126, '中级服务员', '2025-12-24 12:18:46', 1);
-INSERT INTO `position` VALUES (127, '高级服务员', '2025-12-24 12:18:55', 1);
-INSERT INTO `position` VALUES (128, '初级收银', '2025-12-24 12:19:01', 1);
-INSERT INTO `position` VALUES (129, '中级收银', '2025-12-24 12:19:07', 1);
-INSERT INTO `position` VALUES (130, '高级收银', '2025-12-24 12:19:13', 1);
-INSERT INTO `position` VALUES (131, '初级传菜员', '2025-12-24 12:19:23', 1);
-INSERT INTO `position` VALUES (132, '中级传菜员', '2025-12-24 12:19:29', 1);
-INSERT INTO `position` VALUES (133, '高级传菜员', '2025-12-24 12:19:37', 1);
-INSERT INTO `position` VALUES (134, '初级迎宾', '2025-12-24 12:19:54', 1);
-INSERT INTO `position` VALUES (135, '中级迎宾', '2025-12-24 12:19:59', 1);
-INSERT INTO `position` VALUES (136, '高级迎宾', '2025-12-24 12:20:02', 1);
+INSERT INTO `position` VALUES (125, '服务员', '2026-03-10 14:21:01', 1);
+INSERT INTO `position` VALUES (128, '收银员', '2026-03-10 14:27:35', 1);
+INSERT INTO `position` VALUES (131, '传菜员', '2026-03-10 14:28:18', 1);
+INSERT INTO `position` VALUES (134, '迎宾员', '2026-03-10 14:29:00', 1);
 INSERT INTO `position` VALUES (137, '水吧长', '2025-12-24 12:20:20', 1);
-INSERT INTO `position` VALUES (139, '初级吧员', '2025-12-24 14:12:08', 1);
-INSERT INTO `position` VALUES (140, '中级吧员', '2025-12-24 14:12:11', 1);
-INSERT INTO `position` VALUES (141, '高级吧员', '2025-12-24 14:12:13', 1);
+INSERT INTO `position` VALUES (139, '水吧员', '2026-03-10 14:29:45', 1);
 INSERT INTO `position` VALUES (142, '厨师长', '2025-12-24 14:12:18', 1);
 INSERT INTO `position` VALUES (143, '厨房主管', '2025-12-24 14:12:22', 1);
 INSERT INTO `position` VALUES (144, '炉台主管', '2025-12-24 14:12:32', 1);
