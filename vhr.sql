@@ -11,7 +11,7 @@
  Target Server Version : 80026 (8.0.26)
  File Encoding         : 65001
 
- Date: 10/03/2026 17:47:31
+ Date: 11/03/2026 16:29:09
 */
 
 SET NAMES utf8mb4;
@@ -32,7 +32,7 @@ CREATE TABLE `adjustsalary`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `pid`(`eid` ASC) USING BTREE,
   CONSTRAINT `adjustsalary_ibfk_1` FOREIGN KEY (`eid`) REFERENCES `employee` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of adjustsalary
@@ -184,7 +184,7 @@ CREATE TABLE `employee_recycle`  (
   CONSTRAINT `employee_recycle_ibfk_3` FOREIGN KEY (`posId`) REFERENCES `position` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `employee_recycle_ibfk_4` FOREIGN KEY (`nationId`) REFERENCES `nation` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `employee_recycle_ibfk_5` FOREIGN KEY (`politicId`) REFERENCES `politicsstatus` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of employee_recycle
@@ -509,7 +509,7 @@ INSERT INTO `menu` VALUES (74, '/employee/basic/**', '/emp/basic', 'EmpBasic', '
 INSERT INTO `menu` VALUES (75, '/personnel/remove/**', '/per/mv2', 'PerMv2', '交接物品管理', 'fa fa-exchange', NULL, 1, 35, 1);
 INSERT INTO `menu` VALUES (76, '/system/log/**', '/sys/log', 'SysLog', '合作机构管理', 'fa fa-list', NULL, 1, 36, 1);
 INSERT INTO `menu` VALUES (77, '/personnel/ec/**', '/per/work', 'PerWork', '排班管理', 'fa fa-calendar', NULL, 1, 4, 1);
-INSERT INTO `menu` VALUES (78, '/employee/basic/**', '/emp/basic', 'EmpBasic', '黑名单', 'fa fa-ban', NULL, 1, 2, 1);
+INSERT INTO `menu` VALUES (78, '/employee/black/**', '/emp/black', 'EmpBlack', '黑名单', 'fa fa-ban', NULL, 1, 2, 1);
 
 -- ----------------------------
 -- Table structure for menu_role
@@ -974,6 +974,37 @@ CREATE TABLE `salary`  (
 INSERT INTO `salary` VALUES (10, 2000, 2000, 400, 1000, 7400, 2000, 0.07, '2020-01-11 19:54:24', 2000, 0.07, 2000, 0.07, '人事部工资账套');
 INSERT INTO `salary` VALUES (13, 10000, 3000, 500, 500, 18000, 4000, 0.07, '2020-01-11 19:54:24', 4000, 0.07, 4000, 0.07, '运维部工资账套');
 INSERT INTO `salary` VALUES (26, 10000, 50, 200, 100, 7850, 10000, 0.08, '2023-03-10 21:07:53', 10000, 0.05, 10000, 0.12, '测试讨帐');
+
+-- ----------------------------
+-- Table structure for sys_black_list
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_black_list`;
+CREATE TABLE `sys_black_list`  (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '黑名单人员姓名',
+  `idCard` varchar(18) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '身份证号（唯一标识）',
+  `phone` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '联系电话',
+  `reason` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '加入黑名单原因（如：旷工、违规操作、盗窃等）',
+  `sourceDepartment` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '原所属部门/门店',
+  `addTime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '加入黑名单时间',
+  `expireTime` datetime NULL DEFAULT NULL COMMENT '黑名单到期时间（NULL表示永久）',
+  `operator` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '操作人（人事账号/姓名）',
+  `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注信息',
+  `status` tinyint NOT NULL DEFAULT 1 COMMENT '状态：1-有效 0-失效',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `uk_id_card`(`idCard` ASC) USING BTREE COMMENT '身份证号唯一索引，防止重复录入',
+  INDEX `idx_name`(`name` ASC) USING BTREE COMMENT '姓名索引，方便快速查询',
+  INDEX `idx_add_time`(`addTime` ASC) USING BTREE COMMENT '加入时间索引，便于按时间筛选'
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '人事管理黑名单表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sys_black_list
+-- ----------------------------
+INSERT INTO `sys_black_list` VALUES (1, '张三', '110101199001011234', '13800138000', '多次旷工且屡教不改，严重影响门店运营', '北京朝阳门店', '2026-03-01 10:23:45', NULL, 'admin_hr', '经店长多次警告无效，永久拉黑', 1);
+INSERT INTO `sys_black_list` VALUES (2, '李四', '310101199202025678', '13912345678', '违规操作收银系统，造成门店资金损失', '上海静安门店', '2026-03-02 14:15:30', '2027-03-02 14:15:30', 'hr_li', '赔偿后观察期1年，到期可申请解除', 1);
+INSERT INTO `sys_black_list` VALUES (3, '王五', '440101199303039012', '15098765432', '盗窃门店贵重物资，已移交公安机关处理', '广州天河门店', '2026-03-03 09:08:12', NULL, 'security_hr', '涉及刑事犯罪，永久禁止入职', 1);
+INSERT INTO `sys_black_list` VALUES (4, '赵六', '510101199404043456', '18666668888', '恶意散播谣言，破坏团队氛围', '成都武侯门店', '2026-03-04 16:40:22', '2026-06-04 16:40:22', 'hr_wang', '情节较轻，3个月后可重新评估', 1);
+INSERT INTO `sys_black_list` VALUES (5, '孙七', '320101199505057890', '17700009999', '试用期内多次迟到早退，考核不合格', '南京玄武门店', '2026-01-05 11:30:00', '2026-03-05 11:30:00', 'hr_zhang', '试用期结束后解除黑名单', 0);
 
 -- ----------------------------
 -- Table structure for sysmsg

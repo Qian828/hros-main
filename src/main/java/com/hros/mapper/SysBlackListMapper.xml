@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hros.mapper.SysBlackListMapper">
+  <resultMap id="BaseResultMap" type="com.hros.model.SysBlackList">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="idCard" jdbcType="VARCHAR" property="idcard" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="reason" jdbcType="VARCHAR" property="reason" />
+    <result column="sourceDepartment" jdbcType="VARCHAR" property="sourcedepartment" />
+    <result column="addTime" jdbcType="TIMESTAMP" property="addtime" />
+    <result column="expireTime" jdbcType="TIMESTAMP" property="expiretime" />
+    <result column="operator" jdbcType="VARCHAR" property="operator" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, idCard, phone, reason, sourceDepartment, addTime, expireTime, operator, 
+    remark, status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_black_list
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+    <select id="getTotal" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM sys_black_list e
+       <!-- <where>
+            <if test="emp!=null">
+                <if test="emp.name !=null and emp.name!=''">
+                    and e.name like concat('%',#{emp.name},'%')
+                </if>
+                <if test="emp.politicid !=null">
+                    and e.politicId =#{emp.politicid}
+                </if>
+                <if test="emp.nationId !=null">
+                    and e.nationId =#{emp.nationid}
+                </if>
+                <if test="emp.joblevelid !=null">
+                    and e.jobLevelId =#{emp.joblevelid}
+                </if>
+                <if test="emp.departmentid !=null">
+                    and e.departmentId =#{emp.departmentid}
+                </if>
+                <if test="emp.engageform !=null and emp.engageform!=''">
+                    and e.engageForm =#{emp.engageform}
+                </if>
+                <if test="emp.posId !=null">
+                    and e.posId =#{emp.posid}
+                </if>
+            </if>
+            <if test="beginDateScope !=null">
+                and e.beginDate between #{beginDateScope[0]} and #{beginDateScope[1]}
+            </if>
+        </where>-->
+    </select>
+    <select id="getSysBlackByPage" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" /> from sys_black_list e
+        <where>
+        <if test="emp != null">
+            <!--<if test="emp.name !=null and emp.name!=''">
+                and e.name like concat('%',#{emp.name},'%')
+            </if>
+            <if test="emp.politicid !=null">
+                and e.politicId =#{emp.politicid}
+            </if>
+            <if test="emp.nationid !=null">
+                and e.nationId =#{emp.nationid}
+            </if>
+            <if test="emp.joblevelid !=null">
+                and e.jobLevelId =#{emp.joblevelid}
+            </if>
+            <if test="emp.departmentid !=null">
+                and e.departmentId =#{emp.departmentid}
+            </if>
+            <if test="emp.engageform !=null and emp.engageform!=''">
+                and e.engageForm =#{emp.engageform}
+            </if>
+            <if test="emp.posid !=null">
+                and e.posId =#{emp.posid}
+            </if>-->
+        </if>
+       <!-- <if test="beginDateScope !=null">
+            and e.beginDate between #{beginDateScope[0]} and #{beginDateScope[1]}
+        </if>-->
+        </where>
+        order by e.id DESC
+        <if test="page !=null and size!=null">
+            limit #{page},#{size}
+        </if>
+    </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sys_black_list
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.hros.model.SysBlackList" useGeneratedKeys="true">
+    insert into sys_black_list (name, idCard, phone, 
+      reason, sourceDepartment, addTime, 
+      expireTime, operator, remark, 
+      status)
+    values (#{name,jdbcType=VARCHAR}, #{idcard,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{reason,jdbcType=VARCHAR}, #{sourcedepartment,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, 
+      #{expiretime,jdbcType=TIMESTAMP}, #{operator,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{status,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.hros.model.SysBlackList" useGeneratedKeys="true">
+    insert into sys_black_list
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        name,
+      </if>
+      <if test="idcard != null">
+        idCard,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="reason != null">
+        reason,
+      </if>
+      <if test="sourcedepartment != null">
+        sourceDepartment,
+      </if>
+      <if test="addtime != null">
+        addTime,
+      </if>
+      <if test="expiretime != null">
+        expireTime,
+      </if>
+      <if test="operator != null">
+        operator,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null">
+        #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null">
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcedepartment != null">
+        #{sourcedepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expiretime != null">
+        #{expiretime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null">
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hros.model.SysBlackList">
+    update sys_black_list
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null">
+        idCard = #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null">
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcedepartment != null">
+        sourceDepartment = #{sourcedepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null">
+        addTime = #{addtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="expiretime != null">
+        expireTime = #{expiretime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null">
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hros.model.SysBlackList">
+    update sys_black_list
+    set name = #{name,jdbcType=VARCHAR},
+      idCard = #{idcard,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      reason = #{reason,jdbcType=VARCHAR},
+      sourceDepartment = #{sourcedepartment,jdbcType=VARCHAR},
+      addTime = #{addtime,jdbcType=TIMESTAMP},
+      expireTime = #{expiretime,jdbcType=TIMESTAMP},
+      operator = #{operator,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
