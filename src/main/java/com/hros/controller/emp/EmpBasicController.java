@@ -66,6 +66,8 @@ public class EmpBasicController {
     public RespBean addEmp(@RequestBody Employee employee) {
         if (employeeService.addEmp(employee) == 1) {
             return RespBean.ok("添加成功!");
+        }else if (employeeService.addEmp(employee) == 2) {
+            return RespBean.error("此人为黑名单人员，不予入职!");
         }
         return RespBean.error("添加失败!");
     }

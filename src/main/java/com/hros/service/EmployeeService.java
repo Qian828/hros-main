@@ -137,6 +137,8 @@ public class EmployeeService {
             oplogService.addOpLog(new OpLog((byte) 2, new Date(), "员工入职::name:" + employee.getName() + "workId:" + employee.getWorkid(), Hruitls.getCurrent().getName()));
             EmailUtils.sendEmail(new EmailModel(employee, "人事管理系统测试##员工入职","emailpy.py"));
 //        mailReceiver.handler(employee);
+        }else{
+            result = 2;
         }
 
         return result;
