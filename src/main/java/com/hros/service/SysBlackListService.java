@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Transactional
 @Service
@@ -22,8 +23,12 @@ public class SysBlackListService {
         if (page != null && size != null) {
             page = (page - 1) * size;
         }
-        List<SysBlackList> data = sysBlackListMapper.getSysBlackByPage(page, size, sysBlackList, beginDateScope);
+        List<Map<String,Object>> data = sysBlackListMapper.getSysBlackByPage(page, size, sysBlackList, beginDateScope);
         Long total = sysBlackListMapper.getTotal(sysBlackList, beginDateScope);
         return new RespPageBean(total, data);
+    }
+
+    public SysBlackList selectByIdcard(String idCard) {
+        return   sysBlackListMapper.selectByIdcard(idCard);
     }
 }

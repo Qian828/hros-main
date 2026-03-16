@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public interface SysBlackListMapper {
     int deleteByPrimaryKey(Long id);
@@ -20,8 +22,9 @@ public interface SysBlackListMapper {
 
     int updateByPrimaryKey(SysBlackList row);
 
-    List<SysBlackList> getSysBlackByPage(@Param("page") Integer page, @Param("size") Integer size, @Param("emp") SysBlackList blackList, @Param("beginDateScope") Date[] beginDateScope);
+    List<Map<String, Object>> getSysBlackByPage(@Param("page") Integer page, @Param("size") Integer size, @Param("emp") SysBlackList blackList, @Param("beginDateScope") Date[] beginDateScope);
 
     Long getTotal(@Param("emp") SysBlackList blackList, @Param("beginDateScope") Date[] beginDateScope);
 
+    SysBlackList selectByIdcard(String idCard);
 }

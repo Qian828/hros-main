@@ -24,8 +24,15 @@
     from sys_black_list
     where id = #{id,jdbcType=BIGINT}
   </select>
+    <select id="selectByIdcard"  resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from sys_black_list
+        where idCard = #{idCard,jdbcType=BIGINT}
+    </select>
     <select id="getTotal" resultType="java.lang.Long">
-        SELECT COUNT(*) FROM sys_black_list e
+        SELECT COUNT(*) FROM  sys_black_list e
+        LEFT JOIN department d ON e.sourceDepartment = d.id
        <!-- <where>
             <if test="emp!=null">
                 <if test="emp.name !=null and emp.name!=''">
@@ -55,8 +62,9 @@
             </if>
         </where>-->
     </select>
-    <select id="getSysBlackByPage" resultMap="BaseResultMap">
-        select <include refid="Base_Column_List" /> from sys_black_list e
+    <select id="getSysBlackByPage" resultType="com.hros.model.SysBlackList">
+        select e.*,d.`name` as departName from sys_black_list e
+        LEFT JOIN department d ON e.sourceDepartment = d.id
         <where>
         <if test="emp != null">
             <!--<if test="emp.name !=null and emp.name!=''">

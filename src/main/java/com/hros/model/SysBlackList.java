@@ -1,5 +1,7 @@
 package com.hros.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -51,6 +53,7 @@ public class SysBlackList {
      *
      * @mbg.generated
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone ="GMT+8" )
     private Date addtime;
 
     /**
@@ -58,6 +61,7 @@ public class SysBlackList {
      *
      * @mbg.generated
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone ="GMT+8" )
     private Date expiretime;
 
     /**
@@ -80,6 +84,12 @@ public class SysBlackList {
      * @mbg.generated
      */
     private Byte status;
+
+    private String departName;
+
+    // get/set
+    public String getDepartName() { return departName; }
+    public void setDepartName(String departName) { this.departName = departName; }
 
     private static final long serialVersionUID = 1L;
 
