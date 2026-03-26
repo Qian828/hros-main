@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @Description :
@@ -29,6 +30,8 @@ public class EmployeeService {
 
     @Autowired
     EmployeeMapper employeeMapper;
+    @Autowired
+    DepartmentMapper departmentMapper;
     @Autowired
     OplogService oplogService;
     @Autowired
@@ -142,6 +145,20 @@ public class EmployeeService {
         }
 
         return result;
+    }
+
+    public List<Employee> getEmployeeAlls() {
+        List<Employee> allEmployees = employeeMapper.getEmployeeAll();
+        return allEmployees.stream()
+                .filter(Objects::nonNull)
+                .filter(emp -> "在职".equals(emp.getWorkstate()))
+                .map(emp -> {
+                    // 把 departmentid 转成 部门名称
+                    Department department = departmentMapper.selectByPrimaryKey(emp.getDepartmentid());
+                    emp.setDepartment(department);
+                    return emp;
+                })
+                .collect(Collectors.toList());
     }
 
 

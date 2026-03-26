@@ -79,6 +79,11 @@ public class EmpBasicController {
         }
         return RespBean.error("更新失败!");
     }
+    @GetMapping("/employees")
+    public List<Employee> getAllEmployees() {
+        return employeeService.getEmployeeAlls();
+    }
+
 
     @GetMapping("/nations")
     public List<Nation> getAllNations() {
