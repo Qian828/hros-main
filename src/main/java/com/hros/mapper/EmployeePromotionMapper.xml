@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hros.mapper.EmployeePromotionMapper">
+  <resultMap id="BaseResultMap" type="com.hros.model.EmployeePromotion">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="emp_id" jdbcType="INTEGER" property="empId" />
+    <result column="old_pos_id" jdbcType="INTEGER" property="oldPosId" />
+    <result column="new_pos_id" jdbcType="INTEGER" property="newPosId" />
+    <result column="old_job_level_id" jdbcType="INTEGER" property="oldJobLevelId" />
+    <result column="new_job_level_id" jdbcType="INTEGER" property="newJobLevelId" />
+    <result column="reason" jdbcType="VARCHAR" property="reason" />
+    <result column="apply_time" jdbcType="TIMESTAMP" property="applyTime" />
+    <result column="approver_id" jdbcType="INTEGER" property="approverId" />
+    <result column="approve_time" jdbcType="TIMESTAMP" property="approveTime" />
+    <result column="approve_remark" jdbcType="VARCHAR" property="approveRemark" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, emp_id, old_pos_id, new_pos_id, old_job_level_id, new_job_level_id, reason, apply_time, 
+    approver_id, approve_time, approve_remark, status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from employee_promotion
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from employee_promotion
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.hros.model.EmployeePromotion" useGeneratedKeys="true">
+    insert into employee_promotion (emp_id, old_pos_id, new_pos_id, 
+      old_job_level_id, new_job_level_id, reason, 
+      apply_time, approver_id, approve_time, 
+      approve_remark, status)
+    values (#{empId,jdbcType=INTEGER}, #{oldPosId,jdbcType=INTEGER}, #{newPosId,jdbcType=INTEGER}, 
+      #{oldJobLevelId,jdbcType=INTEGER}, #{newJobLevelId,jdbcType=INTEGER}, #{reason,jdbcType=VARCHAR}, 
+      #{applyTime,jdbcType=TIMESTAMP}, #{approverId,jdbcType=INTEGER}, #{approveTime,jdbcType=TIMESTAMP}, 
+      #{approveRemark,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.hros.model.EmployeePromotion" useGeneratedKeys="true">
+    insert into employee_promotion
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="empId != null">
+        emp_id,
+      </if>
+      <if test="oldPosId != null">
+        old_pos_id,
+      </if>
+      <if test="newPosId != null">
+        new_pos_id,
+      </if>
+      <if test="oldJobLevelId != null">
+        old_job_level_id,
+      </if>
+      <if test="newJobLevelId != null">
+        new_job_level_id,
+      </if>
+      <if test="reason != null">
+        reason,
+      </if>
+      <if test="applyTime != null">
+        apply_time,
+      </if>
+      <if test="approverId != null">
+        approver_id,
+      </if>
+      <if test="approveTime != null">
+        approve_time,
+      </if>
+      <if test="approveRemark != null">
+        approve_remark,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="empId != null">
+        #{empId,jdbcType=INTEGER},
+      </if>
+      <if test="oldPosId != null">
+        #{oldPosId,jdbcType=INTEGER},
+      </if>
+      <if test="newPosId != null">
+        #{newPosId,jdbcType=INTEGER},
+      </if>
+      <if test="oldJobLevelId != null">
+        #{oldJobLevelId,jdbcType=INTEGER},
+      </if>
+      <if test="newJobLevelId != null">
+        #{newJobLevelId,jdbcType=INTEGER},
+      </if>
+      <if test="reason != null">
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null">
+        #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approverId != null">
+        #{approverId,jdbcType=INTEGER},
+      </if>
+      <if test="approveTime != null">
+        #{approveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approveRemark != null">
+        #{approveRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hros.model.EmployeePromotion">
+    update employee_promotion
+    <set>
+      <if test="empId != null">
+        emp_id = #{empId,jdbcType=INTEGER},
+      </if>
+      <if test="oldPosId != null">
+        old_pos_id = #{oldPosId,jdbcType=INTEGER},
+      </if>
+      <if test="newPosId != null">
+        new_pos_id = #{newPosId,jdbcType=INTEGER},
+      </if>
+      <if test="oldJobLevelId != null">
+        old_job_level_id = #{oldJobLevelId,jdbcType=INTEGER},
+      </if>
+      <if test="newJobLevelId != null">
+        new_job_level_id = #{newJobLevelId,jdbcType=INTEGER},
+      </if>
+      <if test="reason != null">
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="applyTime != null">
+        apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approverId != null">
+        approver_id = #{approverId,jdbcType=INTEGER},
+      </if>
+      <if test="approveTime != null">
+        approve_time = #{approveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approveRemark != null">
+        approve_remark = #{approveRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hros.model.EmployeePromotion">
+    update employee_promotion
+    set emp_id = #{empId,jdbcType=INTEGER},
+      old_pos_id = #{oldPosId,jdbcType=INTEGER},
+      new_pos_id = #{newPosId,jdbcType=INTEGER},
+      old_job_level_id = #{oldJobLevelId,jdbcType=INTEGER},
+      new_job_level_id = #{newJobLevelId,jdbcType=INTEGER},
+      reason = #{reason,jdbcType=VARCHAR},
+      apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      approver_id = #{approverId,jdbcType=INTEGER},
+      approve_time = #{approveTime,jdbcType=TIMESTAMP},
+      approve_remark = #{approveRemark,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

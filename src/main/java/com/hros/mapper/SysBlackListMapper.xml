@@ -33,12 +33,12 @@
     <select id="getTotal" resultType="java.lang.Long">
         SELECT COUNT(*) FROM  sys_black_list e
         LEFT JOIN department d ON e.sourceDepartment = d.id
-       <!-- <where>
+        <where>
             <if test="emp!=null">
                 <if test="emp.name !=null and emp.name!=''">
                     and e.name like concat('%',#{emp.name},'%')
                 </if>
-                <if test="emp.politicid !=null">
+               <!-- <if test="emp.politicid !=null">
                     and e.politicId =#{emp.politicid}
                 </if>
                 <if test="emp.nationId !=null">
@@ -55,22 +55,19 @@
                 </if>
                 <if test="emp.posId !=null">
                     and e.posId =#{emp.posid}
-                </if>
+                </if>-->
             </if>
-            <if test="beginDateScope !=null">
-                and e.beginDate between #{beginDateScope[0]} and #{beginDateScope[1]}
-            </if>
-        </where>-->
+        </where>
     </select>
     <select id="getSysBlackByPage" resultType="com.hros.model.SysBlackList">
         select e.*,d.`name` as departName from sys_black_list e
         LEFT JOIN department d ON e.sourceDepartment = d.id
         <where>
         <if test="emp != null">
-            <!--<if test="emp.name !=null and emp.name!=''">
+            <if test="emp.name !=null and emp.name!=''">
                 and e.name like concat('%',#{emp.name},'%')
             </if>
-            <if test="emp.politicid !=null">
+            <!--<if test="emp.politicid !=null">
                 and e.politicId =#{emp.politicid}
             </if>
             <if test="emp.nationid !=null">

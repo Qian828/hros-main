@@ -38,7 +38,7 @@
         <javaClientGenerator type="XMLMAPPER" targetPackage="com.hros.mapper"
                              targetProject="src\main\java"/>
         <!--生成全部表tableName设为%-->
-        <table tableName="sys_black_list" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+        <table tableName="employee_promotion" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false">
 
             <property name="useActualColumnNames" value="false"/>
