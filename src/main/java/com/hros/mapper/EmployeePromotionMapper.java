@@ -1,5 +1,6 @@
 package com.hros.mapper;
 
+import com.hros.model.Employee;
 import com.hros.model.EmployeePromotion;
 import com.hros.model.SysBlackList;
 import org.apache.ibatis.annotations.Param;
@@ -20,5 +21,9 @@ public interface EmployeePromotionMapper {
     int updateByPrimaryKeySelective(EmployeePromotion row);
 
     int updateByPrimaryKey(EmployeePromotion row);
+
+    List<Map<String,Object>> getMyPromotionList(@Param("page") Integer page, @Param("size") Integer size, @Param("empId")Integer empId);
+
+    Long getTotal(@Param("empId") Integer empId);
 
 }

@@ -63,6 +63,9 @@ public class EmployeeService {
     RoleMapper roleMapper;
 
     @Autowired
+    PositionMapper positionMapper;
+
+    @Autowired
     SysBlackListMapper sysBlackListMapper;
 
     /*  运行的这个类时的日志打印*/
@@ -156,6 +159,11 @@ public class EmployeeService {
                     // 把 departmentid 转成 部门名称
                     Department department = departmentMapper.selectByPrimaryKey(emp.getDepartmentid());
                     emp.setDepartment(department);
+                    return emp;
+                })
+                .map(emp -> {
+                    Position position = positionMapper.selectByPrimaryKey(emp.getPosid());
+                    emp.setPosition(position);
                     return emp;
                 })
                 .collect(Collectors.toList());

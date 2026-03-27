@@ -53,6 +53,12 @@ public class Hr implements UserDetails {
     }
 
     public void setWorkDate(String workDate) {
+        // 先判断 null！！！这是核心修复
+        if (workDate == null) {
+            this.workDate = null;
+            this.workDates = new ArrayList<>();
+            return;
+        }
         List<String> collect = Arrays.stream(workDate.split(",")).filter(StringUtils::isNoneBlank).collect(Collectors.toList());
         this.workDates = collect;
         this.workDate = workDate;

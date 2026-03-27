@@ -9,9 +9,9 @@
     <result column="old_job_level_id" jdbcType="INTEGER" property="oldJobLevelId" />
     <result column="new_job_level_id" jdbcType="INTEGER" property="newJobLevelId" />
     <result column="reason" jdbcType="VARCHAR" property="reason" />
-    <result column="apply_time" jdbcType="TIMESTAMP" property="applyTime" />
+    <result column="apply_time" jdbcType="DATE" property="applyTime" />
     <result column="approver_id" jdbcType="INTEGER" property="approverId" />
-    <result column="approve_time" jdbcType="TIMESTAMP" property="approveTime" />
+    <result column="approve_time" jdbcType="DATE" property="approveTime" />
     <result column="approve_remark" jdbcType="VARCHAR" property="approveRemark" />
     <result column="status" jdbcType="TINYINT" property="status" />
   </resultMap>
@@ -25,6 +25,48 @@
     from employee_promotion
     where id = #{id,jdbcType=INTEGER}
   </select>
+    <select id="getMyPromotionList"  resultType="map">
+        SELECT  e.id,
+                e.emp_id AS empId,
+                e.old_pos_id AS oldPosId,
+                e.new_pos_id AS newPosId,
+                e.old_job_level_id AS oldJobLevelId,
+                e.new_job_level_id AS newJobLevelId,
+                e.reason,
+                DATE_FORMAT(e.apply_time, '%Y-%m-%d %H:%i:%s') AS applyTime,
+                e.approver_id AS approverId,
+                DATE_FORMAT(e.approve_time, '%Y-%m-%d %H:%i:%s') AS approveTime,
+                e.approve_remark AS approveRemark,
+                e.status,
+                ee.`name` as applyName,
+                aa.`name` as approverName,
+                p1.`name` as oldPosName,
+                j1.`name` as oldJobName,
+                p2.`name` as newPosName,
+                j2.`name` as newJobName
+        FROM employee_promotion e
+        left join position p1 on e.old_pos_id = p1.id
+        LEFT JOIN position p2 ON e.new_pos_id = p2.id
+        LEFT JOIN joblevel j1 on e.old_job_level_id = j1.id
+        LEFT JOIN joblevel j2 on e.new_job_level_id = j2.id
+        LEFT JOIN employee ee on e.emp_id = ee.id
+        LEFT JOIN employee aa on e.approver_id = aa.id
+        where e.emp_id = #{empId,jdbcType=INTEGER}
+        <if test="page !=null and size!=null">
+            limit #{page},#{size}
+        </if>
+    </select>
+    <select id="getTotal" resultType="java.lang.Long">
+        SELECT COUNT(*)
+        FROM employee_promotion e
+                 left join position p1 on e.old_pos_id = p1.id
+                 LEFT JOIN position p2 ON e.new_pos_id = p2.id
+                 LEFT JOIN joblevel j1 on e.old_job_level_id = j1.id
+                 LEFT JOIN joblevel j2 on e.new_job_level_id = j2.id
+                 LEFT JOIN employee ee on e.emp_id = ee.id
+                 LEFT JOIN employee aa on e.approver_id = aa.id
+        where e.emp_id = #{empId,jdbcType=INTEGER}
+    </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from employee_promotion
     where id = #{id,jdbcType=INTEGER}
