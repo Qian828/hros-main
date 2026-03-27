@@ -31,6 +31,13 @@ public class EmployeePromotionController {
         }*/
         return RespBean.error("添加失败!");
     }
+    @PostMapping("/update")
+    public RespBean updateEmployeePromotion(@RequestBody EmployeePromotion employeePromotion) {
+        if (employeePromotionService.updateEmployeePromotion(employeePromotion) == 1) {
+            return RespBean.ok("审核成功!");
+        }
+        return RespBean.error("审核失败!");
+    }
 
 
 }

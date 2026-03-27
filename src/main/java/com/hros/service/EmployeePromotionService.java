@@ -1,7 +1,9 @@
 package com.hros.service;
 
+import com.hros.mapper.EmployeeMapper;
 import com.hros.mapper.EmployeePromotionMapper;
 
+import com.hros.model.Employee;
 import com.hros.model.EmployeePromotion;
 import com.hros.model.RespPageBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,10 @@ import java.util.Map;
 public class EmployeePromotionService {
     @Autowired
     EmployeePromotionMapper employeePromotionMapper;
+    @Autowired
+    EmployeeMapper employeeMapper;
+    @Autowired
+    EmployeeService employeeService;
 
     public RespPageBean getEmployeePromotionByPge(Integer page, Integer size, Integer empId) {
 
@@ -30,5 +36,20 @@ public class EmployeePromotionService {
 
     public Integer addEmployeePromotion(EmployeePromotion employeePromotion) {
         return employeePromotionMapper.insertSelective(employeePromotion);
+    }
+
+    public  Integer deleteEmployeePromotion(Integer id){
+        return employeePromotionMapper.deleteByPrimaryKey(id);
+    }
+
+    @Transactional
+    public Integer updateEmployeePromotion(EmployeePromotion employeePromotion){
+        if (employeePromotion.getStatus()==1){
+            Employee employee = employeeMapper.getEmployeeById(employeePromotion.getEmpId());
+            employee.setPosid(employeePromotion.getNewPosId());
+            employee.setJoblevelid(employeePromotion.getNewJobLevelId());
+            employeeService.updateEmp(employee);
+        }
+        return employeePromotionMapper.updateByPrimaryKeySelective(employeePromotion);
     }
 }
