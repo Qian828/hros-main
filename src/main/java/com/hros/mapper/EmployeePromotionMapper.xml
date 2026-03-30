@@ -51,10 +51,14 @@
         LEFT JOIN joblevel j2 on e.new_job_level_id = j2.id
         LEFT JOIN employee ee on e.emp_id = ee.id
         LEFT JOIN employee aa on e.approver_id = aa.id
-        where e.emp_id = #{empId,jdbcType=INTEGER} or e.approver_id = #{empId,jdbcType=INTEGER}
+        where 1=1
+        <if test="empId !=null">
+           and e.emp_id = #{empId,jdbcType=INTEGER} or e.approver_id = #{empId,jdbcType=INTEGER}
+        </if>
         <if test="page !=null and size!=null">
             limit #{page},#{size}
         </if>
+
     </select>
     <select id="getTotal" resultType="java.lang.Long">
         SELECT COUNT(*)
@@ -65,8 +69,11 @@
                  LEFT JOIN joblevel j2 on e.new_job_level_id = j2.id
                  LEFT JOIN employee ee on e.emp_id = ee.id
                  LEFT JOIN employee aa on e.approver_id = aa.id
-       where e.emp_id = #{empId,jdbcType=INTEGER} or e.approver_id = #{empId,jdbcType=INTEGER}
-    </select>
+        where 1=1
+            <if test="empId !=null">
+             and   e.emp_id = #{empId,jdbcType=INTEGER} or e.approver_id = #{empId,jdbcType=INTEGER}
+            </if>
+     </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from employee_promotion
     where id = #{id,jdbcType=INTEGER}

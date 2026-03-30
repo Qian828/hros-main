@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hros.mapper.EmployeeResignationMapper">
+  <resultMap id="BaseResultMap" type="com.hros.model.EmployeeResignation">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="emp_id" jdbcType="BIGINT" property="empId" />
+    <result column="resign_type" jdbcType="TINYINT" property="resignType" />
+    <result column="resign_reason" jdbcType="VARCHAR" property="resignReason" />
+    <result column="expect_resign_date" jdbcType="DATE" property="expectResignDate" />
+    <result column="approver_id" jdbcType="BIGINT" property="approverId" />
+    <result column="approve_time" jdbcType="TIMESTAMP" property="approveTime" />
+    <result column="approve_remark" jdbcType="VARCHAR" property="approveRemark" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="actual_resign_date" jdbcType="DATE" property="actualResignDate" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, emp_id, resign_type, resign_reason, expect_resign_date, approver_id, approve_time, 
+    approve_remark, status, actual_resign_date, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from employee_resignation
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from employee_resignation
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.hros.model.EmployeeResignation" useGeneratedKeys="true">
+    insert into employee_resignation (emp_id, resign_type, resign_reason, 
+      expect_resign_date, approver_id, approve_time, 
+      approve_remark, status, actual_resign_date, 
+      create_time, update_time)
+    values (#{empId,jdbcType=BIGINT}, #{resignType,jdbcType=TINYINT}, #{resignReason,jdbcType=VARCHAR}, 
+      #{expectResignDate,jdbcType=DATE}, #{approverId,jdbcType=BIGINT}, #{approveTime,jdbcType=TIMESTAMP}, 
+      #{approveRemark,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{actualResignDate,jdbcType=DATE}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.hros.model.EmployeeResignation" useGeneratedKeys="true">
+    insert into employee_resignation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="empId != null">
+        emp_id,
+      </if>
+      <if test="resignType != null">
+        resign_type,
+      </if>
+      <if test="resignReason != null">
+        resign_reason,
+      </if>
+      <if test="expectResignDate != null">
+        expect_resign_date,
+      </if>
+      <if test="approverId != null">
+        approver_id,
+      </if>
+      <if test="approveTime != null">
+        approve_time,
+      </if>
+      <if test="approveRemark != null">
+        approve_remark,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="actualResignDate != null">
+        actual_resign_date,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="empId != null">
+        #{empId,jdbcType=BIGINT},
+      </if>
+      <if test="resignType != null">
+        #{resignType,jdbcType=TINYINT},
+      </if>
+      <if test="resignReason != null">
+        #{resignReason,jdbcType=VARCHAR},
+      </if>
+      <if test="expectResignDate != null">
+        #{expectResignDate,jdbcType=DATE},
+      </if>
+      <if test="approverId != null">
+        #{approverId,jdbcType=BIGINT},
+      </if>
+      <if test="approveTime != null">
+        #{approveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approveRemark != null">
+        #{approveRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="actualResignDate != null">
+        #{actualResignDate,jdbcType=DATE},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hros.model.EmployeeResignation">
+    update employee_resignation
+    <set>
+      <if test="empId != null">
+        emp_id = #{empId,jdbcType=BIGINT},
+      </if>
+      <if test="resignType != null">
+        resign_type = #{resignType,jdbcType=TINYINT},
+      </if>
+      <if test="resignReason != null">
+        resign_reason = #{resignReason,jdbcType=VARCHAR},
+      </if>
+      <if test="expectResignDate != null">
+        expect_resign_date = #{expectResignDate,jdbcType=DATE},
+      </if>
+      <if test="approverId != null">
+        approver_id = #{approverId,jdbcType=BIGINT},
+      </if>
+      <if test="approveTime != null">
+        approve_time = #{approveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="approveRemark != null">
+        approve_remark = #{approveRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="actualResignDate != null">
+        actual_resign_date = #{actualResignDate,jdbcType=DATE},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hros.model.EmployeeResignation">
+    update employee_resignation
+    set emp_id = #{empId,jdbcType=BIGINT},
+      resign_type = #{resignType,jdbcType=TINYINT},
+      resign_reason = #{resignReason,jdbcType=VARCHAR},
+      expect_resign_date = #{expectResignDate,jdbcType=DATE},
+      approver_id = #{approverId,jdbcType=BIGINT},
+      approve_time = #{approveTime,jdbcType=TIMESTAMP},
+      approve_remark = #{approveRemark,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      actual_resign_date = #{actualResignDate,jdbcType=DATE},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

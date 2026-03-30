@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -50,6 +53,14 @@ public class EmployeePromotionService {
             employee.setJoblevelid(employeePromotion.getNewJobLevelId());
             employeeService.updateEmp(employee);
         }
+        // 假设你当前的 LocalDateTime 变量是 approveTime
+        LocalDateTime approveTime = LocalDateTime.now();
+
+        // 转换为 Date
+        Date approveDate = Date.from(approveTime.atZone(ZoneId.systemDefault()).toInstant());
+
+        // 调用 setApproveTime
+        employeePromotion.setApproveTime(approveDate);
         return employeePromotionMapper.updateByPrimaryKeySelective(employeePromotion);
     }
 }

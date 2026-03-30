@@ -26,9 +26,7 @@ public class EmployeePromotionController {
     public RespBean addPromotion(@RequestBody EmployeePromotion employeePromotion) {
         if (employeePromotionService.addEmployeePromotion(employeePromotion) == 1) {
             return RespBean.ok("添加成功!");
-        }/*else if (employeePromotionService.addEmployeePromotion(employeePromotion) == 2) {
-            return RespBean.error("此人为黑名单人员，不予入职!");
-        }*/
+        }
         return RespBean.error("添加失败!");
     }
     @PostMapping("/update")
@@ -38,6 +36,12 @@ public class EmployeePromotionController {
         }
         return RespBean.error("审核失败!");
     }
-
+    @DeleteMapping("/{id}")
+    public RespBean deleteEmployeePromotion(@PathVariable Integer id) {
+        if (employeePromotionService.deleteEmployeePromotion(id) == 1) {
+            return RespBean.ok("删除成功!");
+        }
+        return RespBean.error("删除失败!");
+    }
 
 }

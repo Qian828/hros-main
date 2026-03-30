@@ -43,6 +43,11 @@ public class EmpBasicController {
 
     }
 
+    @GetMapping("/findOne")
+    public Employee getEmploteeById(Integer id) {
+        return employeeService.getEmployeeById(id);
+    }
+
 
 
     @DeleteMapping("/{id}")

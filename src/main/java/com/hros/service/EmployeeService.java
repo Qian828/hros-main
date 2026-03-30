@@ -101,6 +101,10 @@ public class EmployeeService {
         return new RespPageBean(total, data);
     }
 
+    public Employee getEmployeeById(Integer id) {
+        return employeeMapper.getEmployeeById(id);
+    }
+
     @Transactional
     public Integer addEmp(Employee employee) {
         Date beginContract = employee.getBegincontract();
