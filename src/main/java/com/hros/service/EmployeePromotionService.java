@@ -5,7 +5,9 @@ import com.hros.mapper.EmployeePromotionMapper;
 
 import com.hros.model.Employee;
 import com.hros.model.EmployeePromotion;
+import com.hros.model.OpLog;
 import com.hros.model.RespPageBean;
+import com.hros.service.utils.Hruitls;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +28,8 @@ public class EmployeePromotionService {
     EmployeeMapper employeeMapper;
     @Autowired
     EmployeeService employeeService;
+    @Autowired
+    OplogService oplogService;
 
     public RespPageBean getEmployeePromotionByPge(Integer page, Integer size, Integer empId) {
 
@@ -38,20 +42,33 @@ public class EmployeePromotionService {
     }
 
     public Integer addEmployeePromotion(EmployeePromotion employeePromotion) {
+        Employee employee = employeeService.getEmployeeById(employeePromotion.getEmpId());
+        oplogService.addOpLog(new OpLog((byte) 12, new Date(), "员工申请晋升::name:" + employee.getName() + "workId:" + employee.getWorkid(), Hruitls.getCurrent().getName()));
+
         return employeePromotionMapper.insertSelective(employeePromotion);
     }
 
     public  Integer deleteEmployeePromotion(Integer id){
+        EmployeePromotion employeePromotion = employeePromotionMapper.selectByPrimaryKey(id);
+        Employee employee = employeeService.getEmployeeById(employeePromotion.getEmpId());
+        oplogService.addOpLog(new OpLog((byte) 12, new Date(), "员工撤销晋升申请::name:" + employee.getName() + "workId:" + employee.getWorkid(), Hruitls.getCurrent().getName()));
+
         return employeePromotionMapper.deleteByPrimaryKey(id);
     }
 
     @Transactional
     public Integer updateEmployeePromotion(EmployeePromotion employeePromotion){
+        Employee employee = employeeMapper.getEmployeeById(employeePromotion.getEmpId());
         if (employeePromotion.getStatus()==1){
-            Employee employee = employeeMapper.getEmployeeById(employeePromotion.getEmpId());
+
             employee.setPosid(employeePromotion.getNewPosId());
             employee.setJoblevelid(employeePromotion.getNewJobLevelId());
             employeeService.updateEmp(employee);
+            oplogService.addOpLog(new OpLog((byte) 12, new Date(), "员工晋升申请通过::name:" + employee.getName() + "workId:" + employee.getWorkid(), Hruitls.getCurrent().getName()));
+
+        }else if (employeePromotion.getStatus()==2){
+            oplogService.addOpLog(new OpLog((byte) 12, new Date(), "员工晋升申请驳回::name:" + employee.getName() + "workId:" + employee.getWorkid(), Hruitls.getCurrent().getName()));
+
         }
         // 假设你当前的 LocalDateTime 变量是 approveTime
         LocalDateTime approveTime = LocalDateTime.now();

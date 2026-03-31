@@ -145,8 +145,6 @@ public class EmployeeService {
             }
             hrRoleMapper.addHrRole(addHr.getId(), new Integer[]{role.getId()});
             oplogService.addOpLog(new OpLog((byte) 2, new Date(), "员工入职::name:" + employee.getName() + "workId:" + employee.getWorkid(), Hruitls.getCurrent().getName()));
-            EmailUtils.sendEmail(new EmailModel(employee, "人事管理系统测试##员工入职","emailpy.py"));
-//        mailReceiver.handler(employee);
         }else{
             result = 2;
         }
@@ -174,6 +172,7 @@ public class EmployeeService {
     }
 
 
+    @Transactional
     public Integer deleteEmpByEid(Integer id) {
         Employee employee = employeeMapper.getEmployeeById(id);
         double month = (Double.parseDouble(yearFormat.format(new Date())) - Double.parseDouble(yearFormat.format(employee.getBegindate()))) * 12 + (Double.parseDouble(monthFormat.format(new Date())) - Double.parseDouble(monthFormat.format(employee.getBegindate())));
@@ -183,21 +182,16 @@ public class EmployeeService {
         employee.setId(null);
         employeeRecycleService.addEmployeeRecycle(employee);
         oplogService.addOpLog(new OpLog((byte) 9, new Date(), "员工离职:name:" + employee.getName() + "---workId:" + employee.getWorkid(), Hruitls.getCurrent().getName()));
-        EmailUtils.sendEmail(new EmailModel(employee, "人事管理系统测试##员工离职", "emailpyout.py"));
-        employee.setDepartmentid(null);
-        employee.setJoblevelid(null);
-        employee.setPosid(null);
-        employee.setPoliticid(null);
-        employee.setWorkid(null);
-        employee.setNationid(null);
         employee.setId(id);
-        int i = employeeMapper.updateByPrimaryKey(employee);
         employeeremoveMapper.deleteByEmpId(id);
         employeetrainMapper.deleteByEmploy(id);
         empSalaryMapper.deleteByEmpId(id);
         appraiseMapper.deleteAppraiseEmpId(id);
         employeeecMapper.deleteByEmpId(id);
-        return employeeMapper.deleteByPrimaryKey(id);
+        Hr hr = hrMapper.loadUserByEmployeeId(id);
+        hr.setEnabled(false);
+        hrMapper.updateByPrimaryKeySelective(hr);
+        return employeeMapper.updateByPrimaryKey(employee);
     }
 
     public Integer updateEmp(Employee employee) {

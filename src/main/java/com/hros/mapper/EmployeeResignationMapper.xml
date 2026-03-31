@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hros.mapper.EmployeeResignationMapper">
   <resultMap id="BaseResultMap" type="com.hros.model.EmployeeResignation">
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="emp_id" jdbcType="BIGINT" property="empId" />
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="emp_id" jdbcType="INTEGER" property="empId" />
     <result column="resign_type" jdbcType="TINYINT" property="resignType" />
     <result column="resign_reason" jdbcType="VARCHAR" property="resignReason" />
     <result column="expect_resign_date" jdbcType="DATE" property="expectResignDate" />
-    <result column="approver_id" jdbcType="BIGINT" property="approverId" />
+    <result column="approver_id" jdbcType="INTEGER" property="approverId" />
     <result column="approve_time" jdbcType="TIMESTAMP" property="approveTime" />
     <result column="approve_remark" jdbcType="VARCHAR" property="approveRemark" />
     <result column="status" jdbcType="TINYINT" property="status" />
@@ -19,13 +19,52 @@
     id, emp_id, resign_type, resign_reason, expect_resign_date, approver_id, approve_time, 
     approve_remark, status, actual_resign_date, create_time, update_time
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from employee_resignation
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <select id="getEmployeeResignationsByEmpId"  resultType="map">
+        SELECT
+        r.`id`,
+        r.`emp_id` AS empId,
+        r.`resign_type` AS resignType,
+        r.`resign_reason` AS resignReason,
+        DATE_FORMAT(r.`expect_resign_date`, '%Y-%m-%d')  AS expectResignDate,
+        r.`approver_id` AS approverId,
+        DATE_FORMAT(r.`approve_time`, '%Y-%m-%d %H:%i:%s') AS approveTime,
+        r.`approve_remark` AS approveRemark,
+        r.`status` AS status,
+        DATE_FORMAT(r.`actual_resign_date`, '%Y-%m-%d')  AS actualResignDate,
+        DATE_FORMAT(r.`create_time`, '%Y-%m-%d %H:%i:%s') AS createTime,
+        DATE_FORMAT(r.`update_time`, '%Y-%m-%d %H:%i:%s') AS updateTime,
+        e1.`name` AS applyName,
+        e2.`name` AS approverName
+        FROM employee_resignation r
+        LEFT JOIN employee e1 ON r.emp_id = e1.id
+        LEFT JOIN employee e2 ON r.approver_id = e2.id
+        where 1=1
+        <if test="empId !=null">
+            and r.emp_id = #{empId,jdbcType=INTEGER} or r.approver_id = #{empId,jdbcType=INTEGER}
+        </if>
+        <if test="page !=null and size!=null">
+            limit #{page},#{size}
+        </if>
+
+    </select>
+    <select id="getTotal" resultType="java.lang.Long">
+        SELECT
+            count(*)
+        FROM employee_resignation r
+        LEFT JOIN employee e1 ON r.emp_id = e1.id
+        LEFT JOIN employee e2 ON r.approver_id = e2.id
+        where 1=1
+        <if test="empId !=null">
+            and r.emp_id = #{empId,jdbcType=INTEGER} or r.approver_id = #{empId,jdbcType=INTEGER}
+        </if>
+    </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from employee_resignation
     where id = #{id,jdbcType=BIGINT}
   </delete>
@@ -34,8 +73,8 @@
       expect_resign_date, approver_id, approve_time, 
       approve_remark, status, actual_resign_date, 
       create_time, update_time)
-    values (#{empId,jdbcType=BIGINT}, #{resignType,jdbcType=TINYINT}, #{resignReason,jdbcType=VARCHAR}, 
-      #{expectResignDate,jdbcType=DATE}, #{approverId,jdbcType=BIGINT}, #{approveTime,jdbcType=TIMESTAMP}, 
+    values (#{empId,jdbcType=INTEGER}, #{resignType,jdbcType=TINYINT}, #{resignReason,jdbcType=VARCHAR},
+      #{expectResignDate,jdbcType=DATE}, #{approverId,jdbcType=INTEGER}, #{approveTime,jdbcType=TIMESTAMP},
       #{approveRemark,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{actualResignDate,jdbcType=DATE}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
@@ -78,7 +117,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="empId != null">
-        #{empId,jdbcType=BIGINT},
+        #{empId,jdbcType=INTEGER},
       </if>
       <if test="resignType != null">
         #{resignType,jdbcType=TINYINT},
@@ -90,7 +129,7 @@
         #{expectResignDate,jdbcType=DATE},
       </if>
       <if test="approverId != null">
-        #{approverId,jdbcType=BIGINT},
+        #{approverId,jdbcType=INTEGER},
       </if>
       <if test="approveTime != null">
         #{approveTime,jdbcType=TIMESTAMP},
@@ -116,7 +155,7 @@
     update employee_resignation
     <set>
       <if test="empId != null">
-        emp_id = #{empId,jdbcType=BIGINT},
+        emp_id = #{empId,jdbcType=INTEGER},
       </if>
       <if test="resignType != null">
         resign_type = #{resignType,jdbcType=TINYINT},
@@ -128,7 +167,7 @@
         expect_resign_date = #{expectResignDate,jdbcType=DATE},
       </if>
       <if test="approverId != null">
-        approver_id = #{approverId,jdbcType=BIGINT},
+        approver_id = #{approverId,jdbcType=INTEGER},
       </if>
       <if test="approveTime != null">
         approve_time = #{approveTime,jdbcType=TIMESTAMP},
@@ -149,21 +188,21 @@
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.hros.model.EmployeeResignation">
     update employee_resignation
-    set emp_id = #{empId,jdbcType=BIGINT},
+    set emp_id = #{empId,jdbcType=INTEGER},
       resign_type = #{resignType,jdbcType=TINYINT},
       resign_reason = #{resignReason,jdbcType=VARCHAR},
       expect_resign_date = #{expectResignDate,jdbcType=DATE},
-      approver_id = #{approverId,jdbcType=BIGINT},
+      approver_id = #{approverId,jdbcType=INTEGER},
       approve_time = #{approveTime,jdbcType=TIMESTAMP},
       approve_remark = #{approveRemark,jdbcType=VARCHAR},
       status = #{status,jdbcType=TINYINT},
       actual_resign_date = #{actualResignDate,jdbcType=DATE},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

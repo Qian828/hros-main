@@ -1,5 +1,7 @@
 package com.hros.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -9,14 +11,14 @@ public class EmployeeResignation implements Serializable {
      *
      * @mbg.generated
      */
-    private Long id;
+    private Integer id;
 
     /**
      * 员工ID（关联employee表）
      *
      * @mbg.generated
      */
-    private Long empId;
+    private Integer empId;
 
     /**
      * 离职类型 1:主动离职 2:被动离职
@@ -37,6 +39,7 @@ public class EmployeeResignation implements Serializable {
      *
      * @mbg.generated
      */
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date expectResignDate;
 
     /**
@@ -44,13 +47,14 @@ public class EmployeeResignation implements Serializable {
      *
      * @mbg.generated
      */
-    private Long approverId;
+    private Integer approverId;
 
     /**
      * 审批时间
      *
      * @mbg.generated
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date approveTime;
 
     /**
@@ -72,6 +76,7 @@ public class EmployeeResignation implements Serializable {
      *
      * @mbg.generated
      */
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date actualResignDate;
 
     /**
@@ -79,6 +84,7 @@ public class EmployeeResignation implements Serializable {
      *
      * @mbg.generated
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
 
     /**
@@ -86,23 +92,24 @@ public class EmployeeResignation implements Serializable {
      *
      * @mbg.generated
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
 
     private static final long serialVersionUID = 1L;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getEmpId() {
+    public Integer getEmpId() {
         return empId;
     }
 
-    public void setEmpId(Long empId) {
+    public void setEmpId(Integer empId) {
         this.empId = empId;
     }
 
@@ -130,11 +137,11 @@ public class EmployeeResignation implements Serializable {
         this.expectResignDate = expectResignDate;
     }
 
-    public Long getApproverId() {
+    public Integer getApproverId() {
         return approverId;
     }
 
-    public void setApproverId(Long approverId) {
+    public void setApproverId(Integer approverId) {
         this.approverId = approverId;
     }
 
