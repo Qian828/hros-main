@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hros.mapper.HandoverMapper">
+  <resultMap id="BaseResultMap" type="com.hros.model.Handover">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="handover_by" jdbcType="INTEGER" property="handoverBy" />
+    <result column="receive_by" jdbcType="INTEGER" property="receiveBy" />
+    <result column="handover_time" jdbcType="TIMESTAMP" property="handoverTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.hros.model.Handover">
+    <result column="item_names" jdbcType="LONGVARCHAR" property="itemNames" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, handover_by, receive_by, handover_time, remark, create_time
+  </sql>
+  <sql id="Blob_Column_List">
+    item_names
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from handover
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from handover
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.hros.model.Handover" useGeneratedKeys="true">
+    insert into handover (handover_by, receive_by, handover_time, 
+      remark, create_time, item_names
+      )
+    values (#{handoverBy,jdbcType=INTEGER}, #{receiveBy,jdbcType=INTEGER}, #{handoverTime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{itemNames,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.hros.model.Handover" useGeneratedKeys="true">
+    insert into handover
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="handoverBy != null">
+        handover_by,
+      </if>
+      <if test="receiveBy != null">
+        receive_by,
+      </if>
+      <if test="handoverTime != null">
+        handover_time,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="itemNames != null">
+        item_names,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="handoverBy != null">
+        #{handoverBy,jdbcType=INTEGER},
+      </if>
+      <if test="receiveBy != null">
+        #{receiveBy,jdbcType=INTEGER},
+      </if>
+      <if test="handoverTime != null">
+        #{handoverTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="itemNames != null">
+        #{itemNames,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hros.model.Handover">
+    update handover
+    <set>
+      <if test="handoverBy != null">
+        handover_by = #{handoverBy,jdbcType=INTEGER},
+      </if>
+      <if test="receiveBy != null">
+        receive_by = #{receiveBy,jdbcType=INTEGER},
+      </if>
+      <if test="handoverTime != null">
+        handover_time = #{handoverTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="itemNames != null">
+        item_names = #{itemNames,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hros.model.Handover">
+    update handover
+    set handover_by = #{handoverBy,jdbcType=INTEGER},
+      receive_by = #{receiveBy,jdbcType=INTEGER},
+      handover_time = #{handoverTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      item_names = #{itemNames,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hros.model.Handover">
+    update handover
+    set handover_by = #{handoverBy,jdbcType=INTEGER},
+      receive_by = #{receiveBy,jdbcType=INTEGER},
+      handover_time = #{handoverTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
