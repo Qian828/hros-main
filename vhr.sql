@@ -11,7 +11,7 @@
  Target Server Version : 80026 (8.0.26)
  File Encoding         : 65001
 
- Date: 01/04/2026 17:09:10
+ Date: 02/04/2026 17:11:23
 */
 
 SET NAMES utf8mb4;
@@ -390,13 +390,16 @@ CREATE TABLE `handover`  (
   `handover_time` datetime NULL DEFAULT NULL COMMENT '交接时间',
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   `item_names` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '交接物品，逗号分隔',
-  `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP,
+  `create_by` int NULL DEFAULT NULL COMMENT '创建人ID',
+  `create_by_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '创建人姓名',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of handover
 -- ----------------------------
+INSERT INTO `handover` VALUES (1, 5302, 5303, '2026-04-02 16:44:19', '', '工服,发票本', NULL, '系统管理员', '2026-04-02 16:44:22');
 
 -- ----------------------------
 -- Table structure for hr
@@ -558,6 +561,7 @@ INSERT INTO `logtype` VALUES (9, '员工离职', NULL);
 INSERT INTO `logtype` VALUES (10, '员工考评', NULL);
 INSERT INTO `logtype` VALUES (11, '员工资料', NULL);
 INSERT INTO `logtype` VALUES (12, '员工晋升', NULL);
+INSERT INTO `logtype` VALUES (13, '物品交接记录', NULL);
 
 -- ----------------------------
 -- Table structure for main_notice
@@ -652,7 +656,7 @@ CREATE TABLE `menu_role`  (
   INDEX `rid`(`rid` ASC) USING BTREE,
   CONSTRAINT `menu_role_ibfk_1` FOREIGN KEY (`mid`) REFERENCES `menu` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `menu_role_ibfk_2` FOREIGN KEY (`rid`) REFERENCES `role` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1321 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1332 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of menu_role
@@ -680,16 +684,17 @@ INSERT INTO `menu_role` VALUES (1274, 76, 6);
 INSERT INTO `menu_role` VALUES (1275, 65, 6);
 INSERT INTO `menu_role` VALUES (1276, 66, 6);
 INSERT INTO `menu_role` VALUES (1277, 67, 6);
-INSERT INTO `menu_role` VALUES (1311, 48, 34);
-INSERT INTO `menu_role` VALUES (1312, 49, 34);
-INSERT INTO `menu_role` VALUES (1313, 68, 34);
-INSERT INTO `menu_role` VALUES (1314, 69, 34);
-INSERT INTO `menu_role` VALUES (1315, 70, 34);
-INSERT INTO `menu_role` VALUES (1316, 71, 34);
-INSERT INTO `menu_role` VALUES (1317, 72, 34);
-INSERT INTO `menu_role` VALUES (1318, 79, 34);
-INSERT INTO `menu_role` VALUES (1319, 74, 34);
-INSERT INTO `menu_role` VALUES (1320, 67, 34);
+INSERT INTO `menu_role` VALUES (1321, 48, 34);
+INSERT INTO `menu_role` VALUES (1322, 49, 34);
+INSERT INTO `menu_role` VALUES (1323, 68, 34);
+INSERT INTO `menu_role` VALUES (1324, 69, 34);
+INSERT INTO `menu_role` VALUES (1325, 70, 34);
+INSERT INTO `menu_role` VALUES (1326, 71, 34);
+INSERT INTO `menu_role` VALUES (1327, 72, 34);
+INSERT INTO `menu_role` VALUES (1328, 79, 34);
+INSERT INTO `menu_role` VALUES (1329, 74, 34);
+INSERT INTO `menu_role` VALUES (1330, 75, 34);
+INSERT INTO `menu_role` VALUES (1331, 67, 34);
 
 -- ----------------------------
 -- Table structure for msgcontent
@@ -788,7 +793,7 @@ CREATE TABLE `oplog`  (
   `operate` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '操作内容',
   `hrname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '操作员',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2912 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2915 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of oplog
@@ -1040,6 +1045,9 @@ INSERT INTO `oplog` VALUES (2908, 9, '2026-03-31 17:42:05', '员工申请离职:
 INSERT INTO `oplog` VALUES (2909, 9, '2026-03-31 17:42:56', '员工离职:name:第三方---workId:00000014', '陈静');
 INSERT INTO `oplog` VALUES (2910, 9, '2026-03-31 17:42:56', '员工离职申请审核通过::name:第三方workId:null', '陈静');
 INSERT INTO `oplog` VALUES (2911, 9, '2026-04-01 14:43:04', '员工离职申请审核驳回::name:王强workId:00000006', '郑雪');
+INSERT INTO `oplog` VALUES (2912, 1, '2026-04-02 16:46:41', '角色权限变更', '系统管理员');
+INSERT INTO `oplog` VALUES (2913, 13, '2026-04-02 17:09:16', '员工进行物品交接，交接人:周敏workId:00000011', '系统管理员');
+INSERT INTO `oplog` VALUES (2914, 13, '2026-04-02 17:10:28', '删除员工交接记录，交接人：周敏', '系统管理员');
 
 -- ----------------------------
 -- Table structure for politicsstatus

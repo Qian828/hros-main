@@ -7,13 +7,15 @@
     <result column="receive_by" jdbcType="INTEGER" property="receiveBy" />
     <result column="handover_time" jdbcType="TIMESTAMP" property="handoverTime" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="create_by" jdbcType="INTEGER" property="createBy" />
+    <result column="create_by_name" jdbcType="VARCHAR" property="createByName" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.hros.model.Handover">
     <result column="item_names" jdbcType="LONGVARCHAR" property="itemNames" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, handover_by, receive_by, handover_time, remark, create_time
+    id, handover_by, receive_by, handover_time, remark, create_by, create_by_name, create_time
   </sql>
   <sql id="Blob_Column_List">
     item_names
@@ -26,17 +28,57 @@
     from handover
     where id = #{id,jdbcType=INTEGER}
   </select>
+    <select id="selectAllHandover"  resultType="map">
+        SELECT
+        h.id                  AS id,
+        h.handover_by         AS handoverBy,
+        h.receive_by          AS receiveBy,
+        DATE_FORMAT(h.handover_time, '%Y-%m-%d %H:%i:%s') AS handoverTime,
+        h.remark              AS remark,
+        h.item_names          AS itemNames,
+        h.create_by           AS createBy,
+        h.create_by_name      AS createByName,
+        DATE_FORMAT(h.create_time, '%Y-%m-%d %H:%i:%s') AS createTime,
+        e1.name               AS handoverByName,
+        e2.name               AS receiveByName
+        FROM handover h
+        LEFT JOIN employee e1 ON h.handover_by = e1.id
+        LEFT JOIN employee e2 ON h.receive_by = e2.id
+
+        WHERE 1=1
+        <if test="empId !=null">
+            and   h.handover_by =  #{empId,jdbcType=INTEGER}
+            OR h.receive_by =  #{empId,jdbcType=INTEGER}
+            OR h.create_by =  #{empId,jdbcType=INTEGER}
+        </if>
+
+        ORDER BY h.id DESC
+        <if test="page !=null and size!=null">
+            limit #{page},#{size}
+        </if>
+
+    </select>
+    <select id="getTotal" resultType="java.lang.Long">
+        SELECT COUNT(*)
+        FROM handover h
+        WHERE 1=1
+        <if test="empId !=null">
+            and   h.handover_by =  #{empId,jdbcType=INTEGER}
+            OR h.receive_by =  #{empId,jdbcType=INTEGER}
+            OR h.create_by =  #{empId,jdbcType=INTEGER}
+        </if>
+    </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from handover
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.hros.model.Handover" useGeneratedKeys="true">
     insert into handover (handover_by, receive_by, handover_time, 
-      remark, create_time, item_names
-      )
+      remark, create_by, create_by_name, 
+      create_time, item_names)
     values (#{handoverBy,jdbcType=INTEGER}, #{receiveBy,jdbcType=INTEGER}, #{handoverTime,jdbcType=TIMESTAMP}, 
-      #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{itemNames,jdbcType=LONGVARCHAR}
-      )
+      #{remark,jdbcType=VARCHAR}, #{createBy,jdbcType=INTEGER}, #{createByName,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{itemNames,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.hros.model.Handover" useGeneratedKeys="true">
     insert into handover
@@ -52,6 +94,12 @@
       </if>
       <if test="remark != null">
         remark,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createByName != null">
+        create_by_name,
       </if>
       <if test="createTime != null">
         create_time,
@@ -72,6 +120,12 @@
       </if>
       <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=INTEGER},
+      </if>
+      <if test="createByName != null">
+        #{createByName,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -96,6 +150,12 @@
       <if test="remark != null">
         remark = #{remark,jdbcType=VARCHAR},
       </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=INTEGER},
+      </if>
+      <if test="createByName != null">
+        create_by_name = #{createByName,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -111,6 +171,8 @@
       receive_by = #{receiveBy,jdbcType=INTEGER},
       handover_time = #{handoverTime,jdbcType=TIMESTAMP},
       remark = #{remark,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=INTEGER},
+      create_by_name = #{createByName,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       item_names = #{itemNames,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
@@ -121,6 +183,8 @@
       receive_by = #{receiveBy,jdbcType=INTEGER},
       handover_time = #{handoverTime,jdbcType=TIMESTAMP},
       remark = #{remark,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=INTEGER},
+      create_by_name = #{createByName,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
