@@ -30,7 +30,7 @@ public class HandoverController {
     }
 
     @DeleteMapping("/{id}")
-    public RespBean deleteEHandover(@PathVariable Integer id) {
+    public RespBean deleteHandover(@PathVariable Integer id) {
         if (handoverService.deleteHandover(id) == 1) {
             return RespBean.ok("删除成功!");
         }
