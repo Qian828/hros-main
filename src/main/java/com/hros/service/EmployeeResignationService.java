@@ -1,6 +1,7 @@
 package com.hros.service;
 
 import com.hros.mapper.EmployeeResignationMapper;
+import com.hros.mapper.HandoverMapper;
 import com.hros.model.*;
 import com.hros.service.utils.Hruitls;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ public class EmployeeResignationService {
     OplogService oplogService;
     @Autowired
     EmployeeService employeeService;
+    @Autowired
+    HandoverMapper handoverMapper;
 
 
     public RespPageBean getEmployeeResignationByPage(Integer page, Integer size, Integer empId) {
@@ -51,21 +54,28 @@ public class EmployeeResignationService {
      @Transactional
     public Integer updateEmployeeResignation(EmployeeResignation employeeResignation){
          Employee employee = employeeService.getEmployeeById(employeeResignation.getEmpId());
-        if (employeeResignation.getStatus()==1){
-            employeeService.deleteEmpByEid(employeeResignation.getEmpId());
-            oplogService.addOpLog(new OpLog((byte) 9, new Date(), "员工离职申请审核通过::name:" + employee.getName() + "workId:" + employee.getWorkid(), Hruitls.getCurrent().getName()));
-        }else if (employeeResignation.getStatus()==2){
-            oplogService.addOpLog(new OpLog((byte) 9, new Date(), "员工离职申请审核驳回::name:" + employee.getName() + "workId:" + employee.getWorkid(), Hruitls.getCurrent().getName()));
+         if(employeeResignation.getStatus() == 1){
+             if (handoverMapper.selectByHandoverBy(employee.getId()) > 0){
+                 employeeService.deleteEmpByEid(employeeResignation.getEmpId());
+                 oplogService.addOpLog(new OpLog((byte) 9, new Date(), "员工离职申请审核通过::name:" + employee.getName() + "workId:" + employee.getWorkid(), Hruitls.getCurrent().getName()));
+             }else {
+                 return  2;
+             }
 
-        }
-        // 假设你当前的 LocalDateTime 变量是 approveTime
-        LocalDateTime approveTime = LocalDateTime.now();
+         }else if(employeeResignation.getStatus() == 2){
+             oplogService.addOpLog(new OpLog((byte) 9, new Date(), "员工离职申请审核驳回::name:" + employee.getName() + "workId:" + employee.getWorkid(), Hruitls.getCurrent().getName()));
 
-        // 转换为 Date
-        Date approveDate = Date.from(approveTime.atZone(ZoneId.systemDefault()).toInstant());
+         }
 
-        // 调用 setApproveTime
+         // 假设你当前的 LocalDateTime 变量是 approveTime
+         LocalDateTime approveTime = LocalDateTime.now();
+
+         // 转换为 Date
+         Date approveDate = Date.from(approveTime.atZone(ZoneId.systemDefault()).toInstant());
+
+         // 调用 setApproveTime
          employeeResignation.setApproveTime(approveDate);
+
         return employeeResignationMapper.updateByPrimaryKeySelective(employeeResignation);
     }
 }

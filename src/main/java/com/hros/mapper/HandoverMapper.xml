@@ -23,11 +23,15 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from handover
     where id = #{id,jdbcType=INTEGER}
   </select>
+    <select id="selectByHandoverBy" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select
+        count(*)
+        from handover
+        where handover_by = #{empId,jdbcType=INTEGER}
+    </select>
     <select id="selectAllHandover"  resultType="map">
         SELECT
         h.id                  AS id,

@@ -9,13 +9,12 @@
     <result column="reason" jdbcType="VARCHAR" property="reason" />
     <result column="sourceDepartment" jdbcType="VARCHAR" property="sourcedepartment" />
     <result column="addTime" jdbcType="TIMESTAMP" property="addtime" />
-    <result column="expireTime" jdbcType="TIMESTAMP" property="expiretime" />
     <result column="operator" jdbcType="VARCHAR" property="operator" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="status" jdbcType="TINYINT" property="status" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, name, idCard, phone, reason, sourceDepartment, addTime, expireTime, operator, 
+    id, name, idCard, phone, reason, sourceDepartment, addTime, operator,
     remark, status
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
@@ -38,24 +37,6 @@
                 <if test="emp.name !=null and emp.name!=''">
                     and e.name like concat('%',#{emp.name},'%')
                 </if>
-               <!-- <if test="emp.politicid !=null">
-                    and e.politicId =#{emp.politicid}
-                </if>
-                <if test="emp.nationId !=null">
-                    and e.nationId =#{emp.nationid}
-                </if>
-                <if test="emp.joblevelid !=null">
-                    and e.jobLevelId =#{emp.joblevelid}
-                </if>
-                <if test="emp.departmentid !=null">
-                    and e.departmentId =#{emp.departmentid}
-                </if>
-                <if test="emp.engageform !=null and emp.engageform!=''">
-                    and e.engageForm =#{emp.engageform}
-                </if>
-                <if test="emp.posId !=null">
-                    and e.posId =#{emp.posid}
-                </if>-->
             </if>
         </where>
     </select>
@@ -67,28 +48,8 @@
             <if test="emp.name !=null and emp.name!=''">
                 and e.name like concat('%',#{emp.name},'%')
             </if>
-            <!--<if test="emp.politicid !=null">
-                and e.politicId =#{emp.politicid}
-            </if>
-            <if test="emp.nationid !=null">
-                and e.nationId =#{emp.nationid}
-            </if>
-            <if test="emp.joblevelid !=null">
-                and e.jobLevelId =#{emp.joblevelid}
-            </if>
-            <if test="emp.departmentid !=null">
-                and e.departmentId =#{emp.departmentid}
-            </if>
-            <if test="emp.engageform !=null and emp.engageform!=''">
-                and e.engageForm =#{emp.engageform}
-            </if>
-            <if test="emp.posid !=null">
-                and e.posId =#{emp.posid}
-            </if>-->
+
         </if>
-       <!-- <if test="beginDateScope !=null">
-            and e.beginDate between #{beginDateScope[0]} and #{beginDateScope[1]}
-        </if>-->
         </where>
         order by e.id DESC
         <if test="page !=null and size!=null">
@@ -101,12 +62,11 @@
   </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.hros.model.SysBlackList" useGeneratedKeys="true">
     insert into sys_black_list (name, idCard, phone, 
-      reason, sourceDepartment, addTime, 
-      expireTime, operator, remark, 
+      reason, sourceDepartment, addTime, operator, remark,
       status)
     values (#{name,jdbcType=VARCHAR}, #{idcard,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
       #{reason,jdbcType=VARCHAR}, #{sourcedepartment,jdbcType=VARCHAR}, #{addtime,jdbcType=TIMESTAMP}, 
-      #{expiretime,jdbcType=TIMESTAMP}, #{operator,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+       #{operator,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},
       #{status,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.hros.model.SysBlackList" useGeneratedKeys="true">
@@ -129,9 +89,6 @@
       </if>
       <if test="addtime != null">
         addTime,
-      </if>
-      <if test="expiretime != null">
-        expireTime,
       </if>
       <if test="operator != null">
         operator,
@@ -161,9 +118,6 @@
       </if>
       <if test="addtime != null">
         #{addtime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="expiretime != null">
-        #{expiretime,jdbcType=TIMESTAMP},
       </if>
       <if test="operator != null">
         #{operator,jdbcType=VARCHAR},
@@ -197,9 +151,6 @@
       <if test="addtime != null">
         addTime = #{addtime,jdbcType=TIMESTAMP},
       </if>
-      <if test="expiretime != null">
-        expireTime = #{expiretime,jdbcType=TIMESTAMP},
-      </if>
       <if test="operator != null">
         operator = #{operator,jdbcType=VARCHAR},
       </if>
@@ -220,7 +171,6 @@
       reason = #{reason,jdbcType=VARCHAR},
       sourceDepartment = #{sourcedepartment,jdbcType=VARCHAR},
       addTime = #{addtime,jdbcType=TIMESTAMP},
-      expireTime = #{expiretime,jdbcType=TIMESTAMP},
       operator = #{operator,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR},
       status = #{status,jdbcType=TINYINT}

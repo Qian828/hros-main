@@ -24,4 +24,6 @@ public interface HandoverMapper {
     List<Map<String,Object>> selectAllHandover(@Param("page") Integer page, @Param("size") Integer size, @Param("empId")Integer empId);
 
     Long getTotal(@Param("empId") Integer empId);
+
+    int selectByHandoverBy(Integer empId);
 }

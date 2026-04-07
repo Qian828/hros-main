@@ -30,8 +30,11 @@ public class EmployeeResignationController {
     }
     @PostMapping("/update")
     public RespBean updateEmployeeResignation(@RequestBody EmployeeResignation employeeResignation) {
-        if (employeeResignationService.updateEmployeeResignation(employeeResignation) == 1) {
+        int count = employeeResignationService.updateEmployeeResignation(employeeResignation);
+        if (count == 1) {
             return RespBean.ok("审核成功!");
+        }else if (count == 2) {
+            return RespBean.error("还未进行工作交接，暂不能审核通过!");
         }
         return RespBean.error("审核失败!");
     }

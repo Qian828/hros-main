@@ -55,15 +55,6 @@ public class SysBlackList {
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone ="GMT+8" )
     private Date addtime;
-
-    /**
-     * 黑名单到期时间（NULL表示永久）
-     *
-     * @mbg.generated
-     */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone ="GMT+8" )
-    private Date expiretime;
-
     /**
      * 操作人（人事账号/姓名）
      *
@@ -149,13 +140,6 @@ public class SysBlackList {
         this.addtime = addtime;
     }
 
-    public Date getExpiretime() {
-        return expiretime;
-    }
-
-    public void setExpiretime(Date expiretime) {
-        this.expiretime = expiretime;
-    }
 
     public String getOperator() {
         return operator;
@@ -194,7 +178,6 @@ public class SysBlackList {
         sb.append(", reason=").append(reason);
         sb.append(", sourcedepartment=").append(sourcedepartment);
         sb.append(", addtime=").append(addtime);
-        sb.append(", expiretime=").append(expiretime);
         sb.append(", operator=").append(operator);
         sb.append(", remark=").append(remark);
         sb.append(", status=").append(status);
