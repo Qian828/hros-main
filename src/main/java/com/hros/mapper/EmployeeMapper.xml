@@ -204,6 +204,9 @@
                 <if test="emp.name !=null and emp.name!=''">
                     and e.name like concat('%',#{emp.name},'%')
                 </if>
+                <if test="emp.id !=null">
+                    and e.id =#{emp.id}
+                </if>
                 <if test="emp.politicid !=null">
                     and e.politicId =#{emp.politicid}
                 </if>
@@ -239,6 +242,9 @@
             <if test="emp.name !=null and emp.name!=''">
                 and e.name like concat('%',#{emp.name},'%')
             </if>
+              <if test="emp.id !=null">
+                  and e.id =#{emp.id}
+              </if>
             <if test="emp.politicid !=null">
                 and e.politicId =#{emp.politicid}
             </if>
