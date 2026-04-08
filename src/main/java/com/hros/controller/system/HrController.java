@@ -1,6 +1,7 @@
 package com.hros.controller.system;
 
 import com.hros.model.Hr;
+import com.hros.model.HrRole;
 import com.hros.model.RespBean;
 import com.hros.model.Role;
 import com.hros.service.HrService;
@@ -31,6 +32,11 @@ public class HrController {
     public List<Hr> getAllHRs(String name) {
         return hrService.getAllHRs(name);
 
+    }
+
+    @GetMapping("/findRole")
+    public  List<HrRole> getHrRole(Integer hrId){
+        return  hrService.getHrRoleByHrId(hrId);
     }
 
     @GetMapping("/base")

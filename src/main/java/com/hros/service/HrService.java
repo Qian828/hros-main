@@ -4,6 +4,7 @@ import com.hros.mapper.HrMapper;
 import com.hros.mapper.HrRoleMapper;
 import com.hros.mapper.RoleMapper;
 import com.hros.model.Hr;
+import com.hros.model.HrRole;
 import com.hros.model.OpLog;
 import com.hros.service.utils.Hruitls;
 import org.apache.commons.lang3.StringUtils;
@@ -51,6 +52,10 @@ public class HrService implements UserDetailsService {
         }
         hr.setRoles(hrMapper.getHrRolesById(hr.getId()));
         return hr;
+    }
+
+    public List<HrRole> getHrRoleByHrId(Integer hrId){
+        return hrRoleMapper.selectByHrId(hrId);
     }
 
     public List<Hr> getAllHRs(String name) {
