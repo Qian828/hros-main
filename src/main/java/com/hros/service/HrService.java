@@ -101,6 +101,38 @@ public class HrService implements UserDetailsService {
         return true;
     }
 
+    public boolean wordDateSchedule(Integer id,String wordDate) {
+        Hr hr = hrMapper.selectByPrimaryKey(id);
+        List<String> collect = Arrays.stream(Optional.ofNullable(hr.getWorkDate()).orElse(StringUtils.EMPTY).split(",")).filter(StringUtils::isNoneBlank).collect(Collectors.toList());
+        collect.add(wordDate);
+        String wordDateStr = collect.stream().collect(Collectors.joining(","));
+
+        hr.setWorkDate(wordDateStr);
+        hrMapper.updateWorkDate(hr);
+        return true;
+    }
+
+    public boolean cancelSchedule(Integer id, String cancelDate) {
+        // 1. 根据 id 查询当前员工
+        Hr hr = hrMapper.selectByPrimaryKey(id);
+        if (hr == null) return false;
+
+        // 2. 获取原来的 workDates
+        List<String> list = hr.getWorkDates();
+
+        // 4. 移除 要取消的排班（@2026-04-08_早）
+        list.remove(cancelDate);
+
+        // 5. 重新拼接回去
+        String newWorkDates = String.join(",", list);
+
+        // 6. 更新回数据库
+        hr.setWorkDate(newWorkDates);
+        hrMapper.updateWorkDate(hr);
+
+        return true;
+    }
+
 
     @Transactional
     public boolean updateHrRole(Integer hrid, Integer[] rids) {

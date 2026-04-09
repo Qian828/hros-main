@@ -60,6 +60,18 @@ public class HrController {
         return hrService.wordDate(wordDate.getDate());
     }
 
+    @GetMapping("/wordDateSchedule")
+    public boolean wordDateSchedule(Integer id,String wordDate) {
+        return hrService.wordDateSchedule(id,wordDate);
+    }
+
+    @GetMapping("/cancelSchedule")
+    public boolean cancelSchedule(Integer id, String wordDate){
+        return hrService.cancelSchedule(id,wordDate);
+    }
+
+
+
 
 
     public static class WordDate{
