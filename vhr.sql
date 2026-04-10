@@ -11,7 +11,7 @@
  Target Server Version : 80026 (8.0.26)
  File Encoding         : 65001
 
- Date: 09/04/2026 16:49:05
+ Date: 10/04/2026 17:24:06
 */
 
 SET NAMES utf8mb4;
@@ -52,12 +52,12 @@ CREATE TABLE `appraise`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `pid`(`eid` ASC) USING BTREE,
   CONSTRAINT `appraise_ibfk_1` FOREIGN KEY (`eid`) REFERENCES `employee` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 45 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 47 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of appraise
 -- ----------------------------
-INSERT INTO `appraise` VALUES (43, 5271, '2023-03-15', '5', '转正考评', '转正通过');
+INSERT INTO `appraise` VALUES (45, 5301, '2026-04-01', '5', '季度服务质量考评', '顾客满意度高，需优化排班');
 
 -- ----------------------------
 -- Table structure for cooperation_agency
@@ -164,25 +164,24 @@ CREATE TABLE `employee`  (
   CONSTRAINT `employee_ibfk_3` FOREIGN KEY (`posId`) REFERENCES `position` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `employee_ibfk_4` FOREIGN KEY (`nationId`) REFERENCES `nation` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `employee_ibfk_5` FOREIGN KEY (`politicId`) REFERENCES `politicsstatus` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 5310 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 5311 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of employee
 -- ----------------------------
-INSERT INTO `employee` VALUES (5268, '何婷', '女', '1998-10-08', '150124199510081279', '未婚', 1, '中国', 3, '00000001@qq.com', '15692756582', '江苏盐城', 1, 38, 124, '劳动合同', '本科', '软件工程', '盐城师范学院', '2023-03-03', '在职', '00000001', 1, '2023-03-03', NULL, '2023-03-03', '2024-03-11', NULL);
-INSERT INTO `employee` VALUES (5271, '张明', '男', '1999-06-15', '150124199510081276', '未婚', 1, '重庆', 3, '123123@qq.com', '15696756582', '无', 153, 37, 121, '劳动合同', '博士', '软件工程', '盐城师范', '2023-03-03', '在职', '00000002', 0, '2023-03-03', NULL, '2023-03-03', '2023-03-03', NULL);
-INSERT INTO `employee` VALUES (5294, '张晓明', '男', '1990-03-15', '310101199003151234', '已婚', 1, '上海', 3, 'zhangming@test.com', '13800138001', '上海市浦东新区', 153, 37, 121, '劳动合同', '本科', '计算机科学与技术', '复旦大学', '2018-07-01', '在职', '00000004', 3, '2018-10-01', NULL, '2018-07-01', '2021-06-30', 6);
-INSERT INTO `employee` VALUES (5295, '李娜', '女', '1992-08-22', '320101199208225678', '未婚', 2, '南京', 1, 'lina@test.com', '13900139002', '南京市鼓楼区', 153, 39, 121, '劳动合同', '硕士', '会计学', '南京大学', '2019-03-01', '在职', '00000005', 3, '2019-06-01', NULL, '2019-03-01', '2022-02-28', 5);
-INSERT INTO `employee` VALUES (5296, '王强', '男', '1988-11-05', '330101198811059012', '已婚', 1, '杭州', 3, 'wangqiang@test.com', '13700137003', '杭州市西湖区', 153, 37, 121, '劳动合同', '本科', '市场营销', '浙江大学', '2016-05-01', '在职', '00000006', 5, '2016-08-01', NULL, '2016-05-01', '2021-04-30', 8);
-INSERT INTO `employee` VALUES (5297, '刘芳', '女', '1995-02-14', '440101199502143456', '未婚', 3, '广州', 2, 'liufang@test.com', '13600136004', '广州市天河区', 153, 37, 121, '劳务合同', '大专', '人力资源管理', '广州大学', '2020-01-01', '在职', '00000007', 2, '2020-04-01', NULL, '2020-01-01', '2022-12-31', 4);
-INSERT INTO `employee` VALUES (5298, '赵伟', '男', '1993-06-30', '510101199306307890', '已婚', 1, '成都', 3, 'zhaowei@test.com', '13500135005', '成都市锦江区', 153, 37, 121, '劳动合同', '本科', '软件工程', '电子科技大学', '2017-09-01', '在职', '00000008', 3, '2017-12-01', NULL, '2017-09-01', '2020-08-31', 7);
-INSERT INTO `employee` VALUES (5299, '陈静', '女', '1991-10-17', '610101199110172345', '未婚', 3, '西安', 1, 'chenjing@test.com', '13400134006', '西安市雁塔区', 153, 37, 121, '劳动合同', '硕士', '金融学', '西安交通大学', '2018-02-01', '在职', '00000009', 3, '2018-05-01', NULL, '2018-02-01', '2021-01-31', 6);
-INSERT INTO `employee` VALUES (5300, '孙磊', '男', '1989-04-09', '370101198904096789', '已婚', 1, '济南', 3, 'sunlei@test.com', '13300133007', '济南市历下区', 164, 37, 121, '劳动合同', '博士', '管理学', '山东大学', '2015-03-01', '在职', '00000010', 5, '2015-06-01', NULL, '2015-03-01', '2020-02-28', 9);
-INSERT INTO `employee` VALUES (5301, '周敏', '女', '1994-12-25', '430101199412251234', '未婚', 5, '长沙', 2, 'zhoumin@test.com', '13200132008', '长沙市岳麓区', 153, 38, 120, '劳务合同', '本科', '新闻学', '湖南大学', '2019-07-01', '在职', '00000011', 2, '2019-10-01', NULL, '2019-07-01', '2021-06-30', 5);
-INSERT INTO `employee` VALUES (5302, '吴刚', '男', '1996-01-18', '340101199601185678', '未婚', 1, '合肥', 1, 'wugang@test.com', '13100131009', '合肥市蜀山区', 167, 37, 121, '劳动合同', '大专', '电子商务', '合肥工业大学', '2021-01-01', '在职', '00000012', 3, '2021-04-01', NULL, '2021-01-01', '2024-12-31', 3);
-INSERT INTO `employee` VALUES (5303, '郑雪', '女', '1990-07-03', '420101199007039012', '已婚', 2, '武汉', 1, 'zhengxue@test.com', '13000130010', '武汉市洪山区', 165, 38, 120, '劳动合同', '本科', '法学', '武汉大学', '2017-04-01', '在职', '00000013', 3, '2017-07-01', NULL, '2017-04-01', '2020-03-31', 7);
-INSERT INTO `employee` VALUES (5308, '第三方', '男', '1998-10-08', '310110199810052369', '未婚', NULL, '', NULL, 's@qq.com', '11166668888', '防守打法', NULL, NULL, NULL, '劳动合同', '本科', '发达', '范德萨', '2023-03-03', '离职', NULL, 0, '2023-03-03', '2026-03-31', '2023-03-03', '2023-03-03', 3);
-INSERT INTO `employee` VALUES (5309, '古法', '男', '1998-10-08', '420101199807039012', '未婚', 1, '', 3, '11@qq.com', '15699993256', '发达', 164, 38, 121, '劳动合同', '本科', '发达范德萨', '股份第三个', '2023-03-03', '离职', '00000014', 0, '2023-03-03', '2026-04-07', '2023-03-03', '2023-03-03', 3);
+INSERT INTO `employee` VALUES (5268, '何婷', '女', '1998-10-08', '150124199510081279', '未婚', 1, '中国', 3, '00000001@qq.com', '15692756582', '江苏盐城', 169, 38, 124, '劳动合同', '本科', '软件工程', '盐城师范学院', '2023-03-03', '在职', '00000001', 4, '2023-03-03', NULL, '2023-03-03', '2027-03-11', NULL);
+INSERT INTO `employee` VALUES (5271, '张明', '男', '1999-06-15', '150124199510081276', '未婚', 1, '重庆', 3, '123123@qq.com', '15696756582', '无', 153, 38, 124, '劳动合同', '博士', '软件工程', '盐城师范', '2023-03-03', '在职', '00000002', 4, '2023-03-03', NULL, '2023-03-03', '2027-03-03', NULL);
+INSERT INTO `employee` VALUES (5294, '张晓明', '男', '1990-03-15', '310101199003151234', '已婚', 1, '上海', 3, 'zhangming@test.com', '13800138001', '上海市浦东新区', 167, 38, 120, '劳动合同', '本科', '计算机科学与技术', '复旦大学', '2018-07-01', '在职', '00000004', 10, '2018-10-01', NULL, '2018-07-01', '2028-06-30', 6);
+INSERT INTO `employee` VALUES (5295, '李娜', '女', '1992-08-22', '320101199208225678', '未婚', 2, '南京', 1, 'lina@test.com', '13900139002', '南京市鼓楼区', 164, 37, 120, '劳动合同', '硕士', '会计学', '南京大学', '2019-03-01', '在职', '00000005', 10, '2019-06-01', NULL, '2019-03-01', '2029-02-28', 5);
+INSERT INTO `employee` VALUES (5296, '王强', '男', '1988-11-05', '330101198811059012', '已婚', 1, '杭州', 3, 'wangqiang@test.com', '13700137003', '杭州市西湖区', 164, 37, 125, '劳务合同', '本科', '市场营销', '浙江大学', '2016-05-01', '在职', '00000006', 10, '2017-08-01', NULL, '2017-05-01', '2027-04-30', 8);
+INSERT INTO `employee` VALUES (5297, '刘芳', '女', '1995-02-14', '440101199502143456', '未婚', 3, '广州', 2, 'liufang@test.com', '13600136004', '广州市天河区', 167, 37, 121, '劳动合同', '大专', '人力资源管理', '广州大学', '2020-01-01', '在职', '00000007', 6, '2020-04-01', NULL, '2020-01-01', '2026-12-31', 4);
+INSERT INTO `employee` VALUES (5298, '赵伟', '男', '1993-06-30', '510101199306307890', '已婚', 1, '成都', 3, 'zhaowei@test.com', '13500135005', '成都市锦江区', 153, 38, 125, '劳务合同', '本科', '软件工程', '电子科技大学', '2017-09-01', '在职', '00000008', 10, '2017-12-01', NULL, '2017-09-01', '2027-08-31', 7);
+INSERT INTO `employee` VALUES (5299, '陈静', '女', '1991-10-17', '610101199110172345', '未婚', 3, '西安', 1, 'chenjing@test.com', '13400134006', '西安市雁塔区', 153, 37, 121, '劳动合同', '硕士', '金融学', '西安交通大学', '2018-02-01', '在职', '00000009', 10, '2018-05-01', NULL, '2018-02-01', '2028-01-31', 6);
+INSERT INTO `employee` VALUES (5300, '孙磊', '男', '1989-04-09', '370101198904096789', '已婚', 1, '济南', 3, 'sunlei@test.com', '13300133007', '济南市历下区', 164, 37, 121, '劳动合同', '博士', '管理学', '山东大学', '2015-03-01', '在职', '00000010', 5, '2025-06-01', NULL, '2025-03-01', '2030-02-28', 9);
+INSERT INTO `employee` VALUES (5301, '周敏', '女', '1994-12-25', '430101199412251234', '未婚', 5, '长沙', 2, 'zhoumin@test.com', '13200132008', '长沙市岳麓区', 153, 38, 120, '劳动合同', '本科', '新闻学', '湖南大学', '2019-07-01', '在职', '00000011', 10, '2019-10-01', NULL, '2019-07-01', '2029-06-30', 5);
+INSERT INTO `employee` VALUES (5302, '吴刚', '男', '1996-01-18', '340101199601185678', '未婚', 1, '合肥', 1, 'wugang@test.com', '13100131009', '合肥市蜀山区', 167, 37, 121, '劳动合同', '大专', '电子商务', '合肥工业大学', '2021-01-01', '在职', '00000012', 5, '2021-04-01', NULL, '2021-01-01', '2026-12-31', 3);
+INSERT INTO `employee` VALUES (5303, '郑雪', '女', '1990-07-03', '420101199007039012', '已婚', 2, '武汉', 1, 'zhengxue@test.com', '13000130010', '武汉市洪山区', 165, 38, 120, '劳动合同', '本科', '法学', '武汉大学', '2017-04-01', '在职', '00000013', 10, '2017-07-01', NULL, '2017-04-01', '2027-03-31', 7);
+INSERT INTO `employee` VALUES (5310, '王北', '男', '1998-10-08', '430526199806193658', '未婚', 1, '', 3, '188@163.com', '15963237896', '江苏徐州', 164, 37, 125, '劳务合同', '大专', '发达范德萨', '发达', '2026-03-01', '离职', '00000014', 1, '2026-04-01', '2026-04-10', '2026-03-01', '2027-03-01', 0);
 
 -- ----------------------------
 -- Table structure for employee_promotion
@@ -207,9 +206,7 @@ CREATE TABLE `employee_promotion`  (
 -- ----------------------------
 -- Records of employee_promotion
 -- ----------------------------
-INSERT INTO `employee_promotion` VALUES (2, 5295, 120, 121, 38, 39, '发大水', '2026-03-27 15:19:02', 5299, '2026-03-29 15:46:40', '割发代首', 1);
-INSERT INTO `employee_promotion` VALUES (3, 5299, 120, 124, 38, 39, '工地发多少', '2026-03-27 20:51:21', 5301, '2026-03-30 15:41:16', '官方说的', 2);
-INSERT INTO `employee_promotion` VALUES (4, 5301, 121, 120, 37, 38, '发哈爱', '2026-03-30 16:00:17', 5303, '2026-03-30 16:00:44', '同意', 1);
+INSERT INTO `employee_promotion` VALUES (4, 5301, 121, 120, 37, 38, '长期负责门店运营，能力达标', '2026-03-30 16:00:17', 5303, '2026-03-30 16:00:44', '同意', 1);
 
 -- ----------------------------
 -- Table structure for employee_recycle
@@ -256,7 +253,7 @@ CREATE TABLE `employee_recycle`  (
   CONSTRAINT `employee_recycle_ibfk_3` FOREIGN KEY (`posId`) REFERENCES `position` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `employee_recycle_ibfk_4` FOREIGN KEY (`nationId`) REFERENCES `nation` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `employee_recycle_ibfk_5` FOREIGN KEY (`politicId`) REFERENCES `politicsstatus` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of employee_recycle
@@ -269,6 +266,7 @@ INSERT INTO `employee_recycle` VALUES (5, '乳鸽', '男', '1998-10-08', '310311
 INSERT INTO `employee_recycle` VALUES (6, '回访', '男', '1998-10-08', '310110199810082569', '未婚', 1, '', 3, '11@qq.com', '11166665555', '佛山市', 167, 37, 120, '劳动合同', '本科', '发达', '防守打法', '2023-03-03', '离职', '00000014', 0, '2023-03-03', '2026-03-31', '2023-03-03', '2023-03-03', 3);
 INSERT INTO `employee_recycle` VALUES (7, '第三方', '男', '1998-10-08', '310110199810052369', '未婚', 1, '', 3, 's@qq.com', '11166668888', '防守打法', 164, 37, 120, '劳动合同', '本科', '发达', '范德萨', '2023-03-03', '离职', '00000014', 0, '2023-03-03', '2026-03-31', '2023-03-03', '2023-03-03', 3);
 INSERT INTO `employee_recycle` VALUES (8, '古法', '男', '1998-10-08', '420101199807039012', '未婚', 1, '', 3, '11@qq.com', '15699993256', '发达', 164, 38, 121, '劳动合同', '本科', '发达范德萨', '股份第三个', '2023-03-03', '离职', '00000014', 0, '2023-03-03', '2026-04-07', '2023-03-03', '2023-03-03', 3);
+INSERT INTO `employee_recycle` VALUES (9, '王北', '男', '1998-10-08', '430526199806193658', '未婚', 1, '', 3, '188@163.com', '15963237896', '江苏徐州', 164, 37, 125, '劳务合同', '大专', '发达范德萨', '发达', '2026-03-01', '离职', '00000014', 1, '2026-04-01', '2026-04-10', '2026-03-01', '2027-03-01', 0);
 
 -- ----------------------------
 -- Table structure for employee_resignation
@@ -288,15 +286,14 @@ CREATE TABLE `employee_resignation`  (
   `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '员工离职申请表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '员工离职申请表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of employee_resignation
 -- ----------------------------
-INSERT INTO `employee_resignation` VALUES (1, 5296, 1, '辐射带动', '2026-03-09', 5303, '2026-04-01 14:43:04', '不同意', 2, NULL, '2026-03-31 11:25:45', '2026-04-01 14:43:04');
-INSERT INTO `employee_resignation` VALUES (12, 5308, 1, '范德萨', '2026-03-31', 5299, '2026-03-31 17:42:56', '同意', 1, '2026-03-31', '2026-03-31 17:42:05', '2026-03-31 17:42:55');
-INSERT INTO `employee_resignation` VALUES (13, 5299, 1, '范德萨怪怪的', '2026-04-07', 5302, '2026-04-07 15:54:22', '个体户', 2, NULL, '2026-04-07 15:44:56', '2026-04-07 15:54:21');
-INSERT INTO `employee_resignation` VALUES (14, 5309, 1, '发的苟富贵', '2026-04-07', 5303, '2026-04-07 15:57:17', '通过', 1, '2026-04-07', '2026-04-07 15:55:50', '2026-04-07 15:57:16');
+INSERT INTO `employee_resignation` VALUES (1, 5296, 1, '个人职业规划调整', '2026-03-09', 5303, '2026-04-01 14:43:04', '不同意，挽留成功', 2, NULL, '2026-03-31 11:25:45', '2026-04-10 15:21:16');
+INSERT INTO `employee_resignation` VALUES (13, 5299, 1, '回老家发展', '2026-04-07', 5302, '2026-04-07 15:54:22', '不同意，挽留成功', 2, NULL, '2026-04-07 15:44:56', '2026-04-10 15:21:18');
+INSERT INTO `employee_resignation` VALUES (15, 5310, 1, '转行创业', '2026-04-09', 5295, '2026-04-10 15:28:22', '同意', 1, '2026-04-10', '2026-04-01 15:26:59', '2026-04-10 15:29:15');
 
 -- ----------------------------
 -- Table structure for employeeec
@@ -313,13 +310,12 @@ CREATE TABLE `employeeec`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `pid`(`eid` ASC) USING BTREE,
   CONSTRAINT `employeeec_ibfk_1` FOREIGN KEY (`eid`) REFERENCES `employee` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 133 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 135 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of employeeec
 -- ----------------------------
-INSERT INTO `employeeec` VALUES (131, 5271, '2023-03-15', '测试', NULL, 19, '测试');
-INSERT INTO `employeeec` VALUES (132, 5268, '2026-03-09', '范德萨', NULL, 5, '四方达');
+INSERT INTO `employeeec` VALUES (134, 5303, '2026-04-10', '因接待外籍顾客受好评，故记小功一次。', NULL, 2, '奖励');
 
 -- ----------------------------
 -- Table structure for employeeremove
@@ -363,12 +359,12 @@ CREATE TABLE `employeetrain`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `pid`(`eid` ASC) USING BTREE,
   CONSTRAINT `employeetrain_ibfk_1` FOREIGN KEY (`eid`) REFERENCES `employee` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 232 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 233 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of employeetrain
 -- ----------------------------
-INSERT INTO `employeetrain` VALUES (231, 5271, '2026-03-02', '2026-03-09 00:00:00', '转正考核', 1, '考核');
+INSERT INTO `employeetrain` VALUES (232, 5303, '2026-04-01', '2026-04-07 00:00:00', '店长专项管理培训', 5, '跨店交流学习');
 
 -- ----------------------------
 -- Table structure for empsalary
@@ -383,7 +379,7 @@ CREATE TABLE `empsalary`  (
   INDEX `empsalary_ibfk_2`(`sid` ASC) USING BTREE,
   CONSTRAINT `empsalary_ibfk_1` FOREIGN KEY (`eid`) REFERENCES `employee` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `empsalary_ibfk_2` FOREIGN KEY (`sid`) REFERENCES `salary` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 116 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 117 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of empsalary
@@ -395,6 +391,7 @@ INSERT INTO `empsalary` VALUES (112, 5271, 10);
 INSERT INTO `empsalary` VALUES (113, 5271, 10);
 INSERT INTO `empsalary` VALUES (114, 5268, 26);
 INSERT INTO `empsalary` VALUES (115, 5271, 10);
+INSERT INTO `empsalary` VALUES (116, 5303, 13);
 
 -- ----------------------------
 -- Table structure for fileup
@@ -408,7 +405,7 @@ CREATE TABLE `fileup`  (
   `fileType` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `fileDate` datetime NULL DEFAULT NULL,
   PRIMARY KEY (`fileld`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of fileup
@@ -429,13 +426,12 @@ CREATE TABLE `handover`  (
   `create_by_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '创建人姓名',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of handover
 -- ----------------------------
-INSERT INTO `handover` VALUES (1, 5302, 5303, '2026-04-02 16:44:19', '', '工服,发票本', NULL, '系统管理员', '2026-04-02 16:44:22');
-INSERT INTO `handover` VALUES (4, 5309, 5300, '2026-04-07 15:56:37', '发达', '对讲机,工服,宿舍钥匙,宿舍用品三件套', NULL, '系统管理员', '2026-04-07 15:56:45');
+INSERT INTO `handover` VALUES (5, 5310, 5295, '2026-04-10 15:27:30', '已交接', '工服,对讲机,宿舍钥匙,开酒器,宿舍用品三件套', 5310, '王北', '2026-04-10 15:27:37');
 
 -- ----------------------------
 -- Table structure for hr
@@ -455,7 +451,7 @@ CREATE TABLE `hr`  (
   `employee_id` int NULL DEFAULT NULL COMMENT '员工Id',
   `work_date` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 67 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 68 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of hr
@@ -510,6 +506,7 @@ INSERT INTO `hr` VALUES (62, '发多少', '11166668888', '11166668888', '发', 1
 INSERT INTO `hr` VALUES (63, '乳鸽', '11166669999', '11166669999', '发达', 1, '乳鸽', '$2a$10$ySG2lkvjFHY5O0./CPIE1OI8VJsuKYEzOYzqIa7AJR6sEgSzUFOAm', 'https://imgsa.baidu.com/forum/pic/item/a832bc315c6034a8df786e5ac31349540823766e.jpg', NULL, 5306, NULL);
 INSERT INTO `hr` VALUES (65, '第三方', '11166668888', '11166668888', '防守打法', 0, '第三方', '$2a$10$ySG2lkvjFHY5O0./CPIE1OI8VJsuKYEzOYzqIa7AJR6sEgSzUFOAm', 'https://imgsa.baidu.com/forum/pic/item/a832bc315c6034a8df786e5ac31349540823766e.jpg', NULL, 5308, NULL);
 INSERT INTO `hr` VALUES (66, '古法', '15699993256', '15699993256', '发达', 0, '古法', '$2a$10$ySG2lkvjFHY5O0./CPIE1OI8VJsuKYEzOYzqIa7AJR6sEgSzUFOAm', 'https://imgsa.baidu.com/forum/pic/item/a832bc315c6034a8df786e5ac31349540823766e.jpg', NULL, 5309, NULL);
+INSERT INTO `hr` VALUES (67, '王北', '15963237896', '15963237896', '江苏徐州', 0, '王北', '$2a$10$ySG2lkvjFHY5O0./CPIE1OI8VJsuKYEzOYzqIa7AJR6sEgSzUFOAm', 'https://imgsa.baidu.com/forum/pic/item/a832bc315c6034a8df786e5ac31349540823766e.jpg', NULL, 5310, NULL);
 
 -- ----------------------------
 -- Table structure for hr_role
@@ -524,7 +521,7 @@ CREATE TABLE `hr_role`  (
   INDEX `hr_role_ibfk_1`(`hrid` ASC) USING BTREE,
   CONSTRAINT `hr_role_ibfk_1` FOREIGN KEY (`hrid`) REFERENCES `hr` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `hr_role_ibfk_2` FOREIGN KEY (`rid`) REFERENCES `role` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 559 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 560 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of hr_role
@@ -552,6 +549,7 @@ INSERT INTO `hr_role` VALUES (554, 62, 34);
 INSERT INTO `hr_role` VALUES (555, 63, 34);
 INSERT INTO `hr_role` VALUES (557, 65, 34);
 INSERT INTO `hr_role` VALUES (558, 66, 34);
+INSERT INTO `hr_role` VALUES (559, 67, 34);
 
 -- ----------------------------
 -- Table structure for joblevel
@@ -748,7 +746,7 @@ CREATE TABLE `msgcontent`  (
   `message` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `createDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of msgcontent
@@ -835,7 +833,7 @@ CREATE TABLE `oplog`  (
   `operate` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '操作内容',
   `hrname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '操作员',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2949 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 2984 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of oplog
@@ -1124,6 +1122,41 @@ INSERT INTO `oplog` VALUES (2945, 13, '2026-04-07 15:56:45', '员工进行物品
 INSERT INTO `oplog` VALUES (2946, 9, '2026-04-07 15:57:17', '员工离职:name:古法---workId:00000014', '郑雪');
 INSERT INTO `oplog` VALUES (2947, 9, '2026-04-07 15:57:17', '员工离职申请审核通过::name:古法workId:00000014', '郑雪');
 INSERT INTO `oplog` VALUES (2948, 1, '2026-04-08 15:46:53', '角色权限变更', '系统管理员');
+INSERT INTO `oplog` VALUES (2949, 3, '2026-04-10 11:37:31', '员工奖惩删除:eid=5268--id:132', '系统管理员');
+INSERT INTO `oplog` VALUES (2950, 3, '2026-04-10 11:37:33', '员工奖惩删除:eid=5271--id:131', '系统管理员');
+INSERT INTO `oplog` VALUES (2951, 3, '2026-04-10 11:39:23', '员工奖惩添加:eid=5303--ids:[2]', '系统管理员');
+INSERT INTO `oplog` VALUES (2952, 3, '2026-04-10 11:39:41', '员工奖惩删除:eid=5303--id:133', '系统管理员');
+INSERT INTO `oplog` VALUES (2953, 3, '2026-04-10 11:40:18', '员工奖惩添加:eid=5303--ids:[2]', '系统管理员');
+INSERT INTO `oplog` VALUES (2954, 5, '2026-04-10 14:17:09', '更新套账:服务员工资账套', '系统管理员');
+INSERT INTO `oplog` VALUES (2955, 5, '2026-04-10 14:17:27', '更新套账:店长工资账套', '系统管理员');
+INSERT INTO `oplog` VALUES (2956, 5, '2026-04-10 14:17:41', '更新套账:督导工资账套', '系统管理员');
+INSERT INTO `oplog` VALUES (2957, 5, '2026-04-10 14:17:47', '更新套账:店长工资账套', '系统管理员');
+INSERT INTO `oplog` VALUES (2958, 5, '2026-04-10 14:17:56', '更新套账:服务员工资账套', '系统管理员');
+INSERT INTO `oplog` VALUES (2959, 5, '2026-04-10 14:18:08', '更新套账:督导工资账套', '系统管理员');
+INSERT INTO `oplog` VALUES (2960, 11, '2026-04-10 14:20:02', '更新员工资料::name:赵伟---workId:00000008', '系统管理员');
+INSERT INTO `oplog` VALUES (2961, 11, '2026-04-10 14:20:37', '更新员工资料::name:刘芳---workId:00000007', '系统管理员');
+INSERT INTO `oplog` VALUES (2962, 11, '2026-04-10 14:20:43', '更新员工资料::name:赵伟---workId:00000008', '系统管理员');
+INSERT INTO `oplog` VALUES (2963, 11, '2026-04-10 14:20:47', '更新员工资料::name:刘芳---workId:00000007', '系统管理员');
+INSERT INTO `oplog` VALUES (2964, 11, '2026-04-10 14:20:54', '更新员工资料::name:周敏---workId:00000011', '系统管理员');
+INSERT INTO `oplog` VALUES (2965, 11, '2026-04-10 14:21:14', '更新员工资料::name:王强---workId:00000006', '系统管理员');
+INSERT INTO `oplog` VALUES (2966, 11, '2026-04-10 14:21:21', '更新员工资料::name:王强---workId:00000006', '系统管理员');
+INSERT INTO `oplog` VALUES (2967, 11, '2026-04-10 14:21:35', '更新员工资料::name:李娜---workId:00000005', '系统管理员');
+INSERT INTO `oplog` VALUES (2968, 11, '2026-04-10 14:21:53', '更新员工资料::name:张晓明---workId:00000004', '系统管理员');
+INSERT INTO `oplog` VALUES (2969, 11, '2026-04-10 14:22:11', '更新员工资料::name:何婷---workId:00000001', '系统管理员');
+INSERT INTO `oplog` VALUES (2970, 11, '2026-04-10 14:22:26', '更新员工资料::name:张明---workId:00000002', '系统管理员');
+INSERT INTO `oplog` VALUES (2971, 7, '2026-04-10 14:23:44', '员工套账变动:workId:5303套账编号:13', '系统管理员');
+INSERT INTO `oplog` VALUES (2972, 10, '2026-04-10 14:37:02', '删除员工考评eid:5271', '系统管理员');
+INSERT INTO `oplog` VALUES (2973, 4, '2026-04-10 14:39:51', '添加培训:eid=5303', '系统管理员');
+INSERT INTO `oplog` VALUES (2974, 4, '2026-04-10 14:39:56', '取消员工培训eid:5271', '系统管理员');
+INSERT INTO `oplog` VALUES (2975, 4, '2026-04-10 14:40:07', '员工培训eid:5303', '系统管理员');
+INSERT INTO `oplog` VALUES (2976, 10, '2026-04-10 14:41:48', '添加员工考评eid:5301', '系统管理员');
+INSERT INTO `oplog` VALUES (2977, 10, '2026-04-10 14:46:21', '添加员工考评eid:5303', '系统管理员');
+INSERT INTO `oplog` VALUES (2978, 10, '2026-04-10 14:46:27', '删除员工考评eid:5303', '系统管理员');
+INSERT INTO `oplog` VALUES (2979, 2, '2026-04-10 15:25:57', '员工入职::name:王北workId:00000014', '系统管理员');
+INSERT INTO `oplog` VALUES (2980, 9, '2026-04-10 15:26:59', '员工申请离职::name:王北workId:00000014', '王北');
+INSERT INTO `oplog` VALUES (2981, 13, '2026-04-10 15:27:38', '员工进行物品交接，交接人:王北，workId:00000014', '王北');
+INSERT INTO `oplog` VALUES (2982, 9, '2026-04-10 15:28:22', '员工离职:name:王北---workId:00000014', '李娜');
+INSERT INTO `oplog` VALUES (2983, 9, '2026-04-10 15:28:22', '员工离职申请审核通过::name:王北workId:00000014', '李娜');
 
 -- ----------------------------
 -- Table structure for politicsstatus
@@ -1218,17 +1251,17 @@ CREATE TABLE `rwards_punishments`  (
 -- ----------------------------
 -- Records of rwards_punishments
 -- ----------------------------
-INSERT INTO `rwards_punishments` VALUES (2, 1, '记小功', 3, '2019-12-28 10:32:50');
-INSERT INTO `rwards_punishments` VALUES (3, 1, '记大功', 5, '2019-12-28 10:33:33');
-INSERT INTO `rwards_punishments` VALUES (4, 1, '通报批评', -1, '2019-12-28 10:33:58');
-INSERT INTO `rwards_punishments` VALUES (5, 1, '记小过', -5, '2019-12-28 10:34:19');
-INSERT INTO `rwards_punishments` VALUES (9, 3, '罚款500元', -5, '2019-12-28 10:35:02');
-INSERT INTO `rwards_punishments` VALUES (10, 3, '奖金50元', -2, '2019-12-28 10:35:03');
-INSERT INTO `rwards_punishments` VALUES (19, 1, '嘉奖', 4, '2020-01-01 16:25:25');
-INSERT INTO `rwards_punishments` VALUES (20, 5, '带薪调休', 1, '2020-01-01 16:53:07');
-INSERT INTO `rwards_punishments` VALUES (21, 1, '晋职晋级', -2, '2020-01-06 10:40:26');
-INSERT INTO `rwards_punishments` VALUES (22, 5, '年假+1', 3, '2020-01-11 19:05:55');
-INSERT INTO `rwards_punishments` VALUES (23, 5, '团建+1', 2, '2020-01-11 19:07:07');
+INSERT INTO `rwards_punishments` VALUES (2, 1, '记小功', 3, '2026-02-28 10:32:50');
+INSERT INTO `rwards_punishments` VALUES (3, 1, '记大功', 5, '2026-02-28 10:33:33');
+INSERT INTO `rwards_punishments` VALUES (4, 1, '通报批评', -1, '2026-02-28 10:33:58');
+INSERT INTO `rwards_punishments` VALUES (5, 1, '记小过', -5, '2026-02-28 10:34:19');
+INSERT INTO `rwards_punishments` VALUES (9, 3, '罚款500元', -5, '2026-02-28 10:35:02');
+INSERT INTO `rwards_punishments` VALUES (10, 3, '奖金50元', -2, '2026-02-28 10:35:03');
+INSERT INTO `rwards_punishments` VALUES (19, 1, '嘉奖', 4, '2026-03-01 16:25:25');
+INSERT INTO `rwards_punishments` VALUES (20, 5, '带薪调休', 1, '2026-03-01 16:53:07');
+INSERT INTO `rwards_punishments` VALUES (21, 1, '晋职晋级', -2, '2026-03-01 10:40:26');
+INSERT INTO `rwards_punishments` VALUES (22, 5, '年假+1', 3, '2026-03-01 19:05:55');
+INSERT INTO `rwards_punishments` VALUES (23, 5, '团建+1', 2, '2026-03-01 19:07:07');
 
 -- ----------------------------
 -- Table structure for rwardsandpunishments
@@ -1272,9 +1305,9 @@ CREATE TABLE `salary`  (
 -- ----------------------------
 -- Records of salary
 -- ----------------------------
-INSERT INTO `salary` VALUES (10, 2000, 2000, 400, 1000, 7400, 2000, 0.07, '2020-01-11 19:54:24', 2000, 0.07, 2000, 0.07, '人事部工资账套');
-INSERT INTO `salary` VALUES (13, 10000, 3000, 500, 500, 18000, 4000, 0.07, '2020-01-11 19:54:24', 4000, 0.07, 4000, 0.07, '运维部工资账套');
-INSERT INTO `salary` VALUES (26, 10000, 50, 200, 100, 7850, 10000, 0.08, '2023-03-10 21:07:53', 10000, 0.05, 10000, 0.12, '测试讨帐');
+INSERT INTO `salary` VALUES (10, 2000, 2000, 400, 100, 4080, 2000, 0.07, '2026-02-11 19:54:24', 2000, 0.07, 2000, 0.07, '服务员工资账套');
+INSERT INTO `salary` VALUES (13, 7000, 3000, 500, 500, 10160, 4000, 0.07, '2026-02-11 19:54:24', 4000, 0.07, 4000, 0.07, '店长工资账套');
+INSERT INTO `salary` VALUES (26, 10000, 50, 200, 1000, 8750, 10000, 0.08, '2026-03-10 21:07:53', 10000, 0.05, 10000, 0.12, '督导工资账套');
 
 -- ----------------------------
 -- Table structure for sys_black_list
@@ -1344,7 +1377,7 @@ CREATE TABLE `third_party_org`  (
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
   `create_time` datetime NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '实习生派遣合作机构信息表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '实习生派遣合作机构信息表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of third_party_org
