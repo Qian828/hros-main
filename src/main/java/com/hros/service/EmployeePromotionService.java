@@ -70,13 +70,12 @@ public class EmployeePromotionService {
             oplogService.addOpLog(new OpLog((byte) 12, new Date(), "员工晋升申请驳回::name:" + employee.getName() + "workId:" + employee.getWorkid(), Hruitls.getCurrent().getName()));
 
         }
-        // 假设你当前的 LocalDateTime 变量是 approveTime
         LocalDateTime approveTime = LocalDateTime.now();
 
         // 转换为 Date
         Date approveDate = Date.from(approveTime.atZone(ZoneId.systemDefault()).toInstant());
 
-        // 调用 setApproveTime
+        //设置审核通过时间
         employeePromotion.setApproveTime(approveDate);
         return employeePromotionMapper.updateByPrimaryKeySelective(employeePromotion);
     }
