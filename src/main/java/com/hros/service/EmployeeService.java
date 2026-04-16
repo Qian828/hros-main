@@ -109,10 +109,12 @@ public class EmployeeService {
     public Integer addEmp(Employee employee) {
         Date beginContract = employee.getBegincontract();
         Date endContract = employee.getEndcontract();
-        double month = (Double.parseDouble(yearFormat.format(endContract)) - Double.parseDouble(yearFormat.format(beginContract))) * 12 + (Double.parseDouble(monthFormat.format(endContract)) - Double.parseDouble(monthFormat.format(beginContract)));
+        double month = (Double.parseDouble(yearFormat.format(endContract)) - Double.parseDouble(yearFormat.format(beginContract))) * 12
+                + (Double.parseDouble(monthFormat.format(endContract)) - Double.parseDouble(monthFormat.format(beginContract)));
         employee.setContractterm(Double.parseDouble(decimalFormat.format(month / 12)));
         employee.getIdcard();
         int result = 0;
+        //判断是否为黑名单人员
         if (sysBlackListMapper.selectByIdcard(employee.getIdcard()) == null) {
             result = employeeMapper.insertSelective(employee);
             Employee employeeByName = employeeMapper.getEmployeeByName(employee.getName());
@@ -148,7 +150,6 @@ public class EmployeeService {
         }else{
             result = 2;
         }
-
         return result;
     }
 
