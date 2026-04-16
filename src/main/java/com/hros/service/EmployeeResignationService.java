@@ -67,13 +67,13 @@ public class EmployeeResignationService {
 
          }
 
-         // 假设你当前的 LocalDateTime 变量是 approveTime
+
          LocalDateTime approveTime = LocalDateTime.now();
 
          // 转换为 Date
          Date approveDate = Date.from(approveTime.atZone(ZoneId.systemDefault()).toInstant());
 
-         // 调用 setApproveTime
+         //设置审核时间
          employeeResignation.setApproveTime(approveDate);
 
         return employeeResignationMapper.updateByPrimaryKeySelective(employeeResignation);

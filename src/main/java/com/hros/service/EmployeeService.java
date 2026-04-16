@@ -176,7 +176,8 @@ public class EmployeeService {
     @Transactional
     public Integer deleteEmpByEid(Integer id) {
         Employee employee = employeeMapper.getEmployeeById(id);
-        double month = (Double.parseDouble(yearFormat.format(new Date())) - Double.parseDouble(yearFormat.format(employee.getBegindate()))) * 12 + (Double.parseDouble(monthFormat.format(new Date())) - Double.parseDouble(monthFormat.format(employee.getBegindate())));
+        double month = (Double.parseDouble(yearFormat.format(new Date())) - Double.parseDouble(yearFormat.format(employee.getBegindate()))) * 12
+                + (Double.parseDouble(monthFormat.format(new Date())) - Double.parseDouble(monthFormat.format(employee.getBegindate())));
         employee.setNotworkdate(new Date());
         employee.setWorkage((int) Double.parseDouble(decimalFormat.format(month / 12)));
         employee.setWorkstate("离职");
